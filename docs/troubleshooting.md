@@ -51,7 +51,8 @@ Before diving into specific issues, answer these questions:
 - [User Management Problems](#user-management-problems)
 - [Blueprint or Template Not Working](#blueprint-or-template-not-working)
 - [Integration Issues](#integration-issues)
-- [Performance Problems](#performance-problems)
+- [Plugin Service Issues](#plugin-service-issues)
+- [Performance Problems](#issue-opencdmp-is-slow)
 
 ### System Issues
 - [Services Not Starting](#services-not-starting)
@@ -107,7 +108,7 @@ Before diving into specific issues, answer these questions:
 **Solutions:**
 
 1. **Clear Browser Data**
-   ```
+   ```text
    Chrome: Settings → Privacy → Clear browsing data
    Firefox: Settings → Privacy → Clear Data
    ```
@@ -150,11 +151,11 @@ Before diving into specific issues, answer these questions:
    - Review session management configuration
 
 **Keycloak Session Settings:**
-```
+```text
 Keycloak Admin Console → Realm Settings → Tokens
 - SSO Session Idle: 30 minutes
 - SSO Session Max: 10 hours
-- Access Token Lifespan: 5 minutes 
+- Access Token Lifespan: 5 minutes
 ```
 
 ---
@@ -377,7 +378,7 @@ Keycloak Admin Console → Realm Settings → Tokens
    - Or grant "All sections" access
 
 3. **Plan Status**
-   - Finalized plans cannot be edit
+   - Finalized plans cannot be edited
 
 4. **Collaborator Must Accept Invitation**
    - They must click link in email
@@ -590,7 +591,207 @@ Keycloak Admin Console → Realm Settings → Tokens
 
 ---
 
-## Performance Problems
+## Plugin Service Issues
+
+OpenCDMP plugins (file transformers, deposit services, evaluators) are independent microservices registered via [Tenant Configuration](/admin-guide/tenant-management/tenant-configuration.md). Use this section to diagnose connection and runtime issues.
+
+### Issue: Plugin Not Appearing in the UI
+
+**Symptoms:**
+- Export format is missing from the export menu
+- Deposit repository is not listed
+- Evaluator is not available when trying to evaluate a plan
+
+**Solutions:**
+
+1. **Verify the service is registered**
+   - Go to **Admin → Tenant Configuration**
+   - Confirm the plugin is listed under File Transformers, Deposit Sources, or Evaluators
+   - If missing, register it and provide the correct base URL
+
+2. **Verify the service is reachable**
+   - OpenCDMP calls the plugin's configuration endpoint on registration and at runtime:
+     - File Transformer: `GET /api/file-transformer/formats`
+     - Deposit: `GET /api/deposit/configuration`
+     - Evaluator: `GET /api/evaluator/config`
+   - Test reachability from the OpenCDMP backend host:
+     ```bash
+     curl http://<plugin-host>:<port>/api/file-transformer/formats
+     ```
+   - If the request fails, the plugin will not appear in the UI
+
+3. **Check plugin ID matches exactly**
+   - The `fileTransformerId` / `repositoryId` / `evaluatorId` returned by the plugin's configuration endpoint must exactly match the ID registered in Tenant Configuration (case-sensitive)
+   - Mismatched IDs cause silent failures
+
+4. **Confirm the service is running**
+   ```bash
+   docker ps | grep <plugin-container-name>
+   docker logs <plugin-container-name> --tail 50
+   ```
+
+5. **Check network connectivity**
+   - Plugins must be reachable from the OpenCDMP backend container, not only from the host
+   - If running in Docker, ensure both containers share the same network:
+     ```bash
+     docker network inspect <network-name>
+     ```
+
+---
+
+### Issue: Export Fails or Returns Empty File
+
+**Symptoms:**
+- Clicking export does nothing
+- Downloaded file is 0 bytes or corrupt
+- Error: "Export failed" or HTTP 500
+
+**Solutions:**
+
+1. **Check file transformer logs**
+   ```bash
+   docker logs <file-transformer-container> --tail 100
+   ```
+   Look for exceptions thrown during `exportPlan` or `exportDescription`.
+
+2. **Verify the format is declared**
+   - The format string used in the export request must match an entry in `exportVariants` returned by `GET /api/file-transformer/formats`
+   - Check the transformer's configuration response for supported format IDs
+
+3. **Shared storage issues**
+   - If the transformer uses `useSharedStorage: true`, the shared volume must be mounted and accessible
+   - Verify the volume path is consistent between the OpenCDMP backend and the transformer container
+
+4. **Template/configuration fields**
+   - Some transformers require admin-configured fields (e.g., a DOCX template file)
+   - Go to **Tenant Configuration → File Transformers** and verify all required configuration fields are filled in
+   - If a required field is missing, the transformer may return an error or empty output
+
+5. **Model serialization issues**
+   - If the plan contains unusual characters or very large descriptions, serialization can fail
+   - Check the backend API logs as well:
+     ```bash
+     docker logs opencdmp-api --tail 100
+     ```
+
+---
+
+### Issue: Deposit Fails — No DOI Returned {#deposit-fails-no-doi-returned}
+
+**Symptoms:**
+- Deposit button clicked but no DOI assigned
+- Error: "Deposit failed" or "Authentication error"
+- Repository page never created
+
+**Solutions:**
+
+1. **Check deposit service logs**
+   ```bash
+   docker logs <deposit-service-container> --tail 100
+   ```
+
+2. **Authentication failures**
+
+   | Auth method | What to check |
+   |-------------|---------------|
+   | `PluginDefault` (system token) | Verify `accessToken` in Tenant Configuration is valid and not expired |
+   | `oAuth2Flow` (user OAuth2) | Re-authorize: the user's OAuth2 token may have expired — try depositing again and re-authorizing |
+   | `AuthInfoFromUserProfile` | Ask the user to update their profile credentials (Profile → Settings → [Repository Name]) |
+
+3. **Plan is not Finalized**
+   - Most deposit services require the plan to be in a Finalized status before accepting a deposit
+   - Change the plan status to Finalized and retry
+
+4. **Repository-specific metadata requirements**
+   - Some repositories require specific metadata fields (e.g., license, description)
+   - Check the deposit service documentation for required fields
+   - Verify that the plan contains the expected content
+
+5. **Network/firewall issues**
+   - The deposit service must be able to reach the external repository
+   - Test outbound connectivity from the deposit service container:
+     ```bash
+     docker exec <deposit-container> curl -I https://zenodo.org
+     ```
+
+6. **Previous DOI conflicts**
+   - For plan updates, the deposit service reads `plan.getPreviousDOI()` to create a new version
+   - If the previous deposit record was deleted or the DOI is invalid, the versioning call will fail
+   - Clear the DOI field on the plan and deposit as a new record
+
+---
+
+### Issue: Evaluator Returns Unexpected Results or Fails
+
+**Symptoms:**
+- Evaluation completes but score is always 0 or null
+- Error: "Evaluation failed"
+- Benchmarks do not appear when triggering evaluation
+
+**Solutions:**
+
+1. **Check evaluator logs**
+   ```bash
+   docker logs <evaluator-container> --tail 100
+   ```
+
+2. **Benchmarks not appearing**
+   - Available benchmarks come from `EvaluatorConfiguration.availableBenchmarks` returned by `GET /api/evaluator/config`
+   - Test the endpoint directly:
+     ```bash
+     curl http://<evaluator-host>:<port>/api/evaluator/config
+     ```
+   - If `availableBenchmarks` is empty or missing, no benchmarks will appear in the UI
+
+3. **Score is always 0 or null**
+   - Check evaluator logs for exceptions thrown inside `rankPlan` or `rankDescription`
+   - A swallowed exception (caught and ignored) may cause the evaluator to return an empty or zero-scored result
+   - Verify that the evaluator's `RankResultModel` contains a non-null `results` list
+
+4. **Entity type mismatch**
+   - Confirm `evaluatorEntityTypes` in the evaluator configuration includes the correct type (`Plan`, `Description`, or both)
+   - An evaluator configured only for `Plan` will not appear when evaluating a description
+
+5. **External API dependency failures**
+   - Evaluators that call external APIs (e.g., validation services) may fail silently if the API is unreachable
+   - Test the external dependency from the evaluator container:
+     ```bash
+     docker exec <evaluator-container> curl -I https://external-api.example.com
+     ```
+
+6. **RankConfig display issues**
+   - If the evaluator uses `ValueRange` scoring but scores are displayed incorrectly, verify the `min`, `max`, and `minPassValue` in `RankConfig` match the actual score range returned
+   - If using `Selection` scoring, verify that each possible return value maps to a `ValueSet` entry in `SelectionConfiguration`
+
+---
+
+### Issue: Plugin Registered but OpenCDMP Cannot Connect
+
+**Symptoms:**
+- Plugin appears in Tenant Configuration but shows a connection error
+- Error in logs: "Connection refused", "timeout", or "No route to host"
+- Plugin formats/benchmarks/repositories do not load
+
+**Solutions:**
+
+1. **Verify the base URL format**
+   - The URL registered in Tenant Configuration must be the base URL of the plugin service (e.g., `http://my-evaluator:8087`)
+   - It must **not** include the path (`/api/evaluator/config`) — OpenCDMP appends this automatically
+   - Ensure the URL uses the correct protocol (`http` vs `https`)
+
+2. **DNS resolution inside Docker**
+   - When using Docker Compose, use the service name as the hostname (e.g., `http://file-transformer-docx:8085`), not `localhost` or `127.0.0.1`
+   - `localhost` inside a container refers to the container itself, not the host or other containers
+
+3. **Check for SSL/TLS mismatches**
+   - If the plugin is behind a reverse proxy with HTTPS, ensure the certificate is valid and trusted by the OpenCDMP backend JVM
+   - For self-signed certificates, either import the certificate into the JVM trust store or configure the backend to accept it
+
+4. **Firewall or container security policies**
+   - Confirm no firewall rules block traffic between containers on the configured port
+   - Check Docker network mode — bridge networks isolate containers by default unless explicitly connected
+
+---
 
 ### Issue: OpenCDMP is Slow
 
@@ -627,6 +828,20 @@ Keycloak Admin Console → Realm Settings → Tokens
    ```
 
 2. **Database Performance**
+   ```bash
+   # Check slow queries
+   docker exec <postgres-container> psql -U <user> -d <database> -c \
+     "SELECT pid, now() - pg_stat_activity.query_start AS duration, query
+      FROM pg_stat_activity
+      WHERE state != 'idle' ORDER BY duration DESC LIMIT 10;"
+   ```
+   - Review slow queries and add indexes if needed
+   - Run `VACUUM ANALYZE` to update table statistics:
+     ```bash
+     docker exec <postgres-container> psql -U <user> -d <database> -c "VACUUM ANALYZE;"
+     ```
+   - Monitor database connection pool usage — increase pool size if connections are exhausted
+   - Check disk I/O — move PostgreSQL data to faster storage if disk is the bottleneck
 
 ---
 
@@ -646,7 +861,7 @@ Keycloak Admin Console → Realm Settings → Tokens
 2. **Common Issues:**
 
    **Database Connection Failed:**
-   ```
+   ```text
    Error: "Could not connect to database"
    ```
    - Verify PostgreSQL is running
@@ -654,7 +869,7 @@ Keycloak Admin Console → Realm Settings → Tokens
    - Test database connection manually
 
    **Keycloak Unreachable:**
-   ```
+   ```text
    Error: "Unable to fetch OIDC configuration"
    ```
    - Verify Keycloak is running
@@ -662,7 +877,7 @@ Keycloak Admin Console → Realm Settings → Tokens
    - Ensure network between services
 
    **Missing Environment Variables:**
-   ```
+   ```text
    Error: "Required environment variable not set"
    ```
    - Check all required vars in `.env` file
@@ -686,12 +901,24 @@ Keycloak Admin Console → Realm Settings → Tokens
 **Solutions (Administrator):**
 
 1. **Verify PostgreSQL Running**
+   ```bash
+   docker ps | grep postgres
+   docker logs <postgres-container> --tail 20
+   ```
 
 2. **Test Connection Manually**
+   ```bash
+   docker exec <postgres-container> psql -U <user> -d <database> -c "SELECT 1;"
+   ```
 
 3. **Check Network Configuration**
+   - Ensure the database container is on the same Docker network as the API service
+   - Verify the `DB_URL` hostname matches the container or service name, not `localhost`
+   - Check that the PostgreSQL port (default 5432) is not blocked by firewall rules
 
 4. **Database Credentials**
+   - Confirm `DB_USER` and `DB_PASS` match the credentials configured in the PostgreSQL container
+   - Check for special characters in the password that may need escaping
 
 ---
 
@@ -769,7 +996,7 @@ Before contacting support, gather this information:
 
 ## Related Documentation
 
-- [Deployment Guide](/docs/getting-started/deployment/index.md) - Initial setup and deployment
+- [Deployment Guide](/getting-started/deployment/index.md) - Initial setup and deployment
 
 ---
 

@@ -32,13 +32,39 @@ OpenCDMP has different admin levels with specific permissions:
 | Role | Scope | Capabilities |
 |------|-------|--------------|
 | **Installation Admin** | Entire OpenCDMP instance | System configuration, tenant management, global settings, usage limits |
-| **Tenant Admin** | Single tenant/organization | Full tenant administration - all Config Manager and Plan Manager capabilities, plus: reference types, prefilling sources, tenant users, annotation statuses, tenant configuration |
+| **Tenant Admin** | Single tenant/organization | Full tenant administration — all Config Manager and Plan Manager capabilities, plus: reference types, prefilling sources, tenant users, annotation statuses, tenant configuration |
 | **Tenant Config Manager** | Tenant configuration | Manage languages, supportive material, plan statuses, description statuses, notification templates |
 | **Tenant Plan Manager** | Content management | Manage blueprints, description templates, template types |
 
 :::info Role Hierarchy
 **Tenant Admin** has all permissions of both Config Manager and Plan Manager, plus additional tenant-specific administration capabilities.
 :::
+
+```mermaid
+graph TB
+    subgraph "Global Roles"
+        InstallAdmin["<b>Installation Admin</b><br/>System-wide configuration,<br/>all tenants, global settings"]
+        GlobalUser["<b>User</b><br/>Create and manage own plans"]
+    end
+
+    subgraph "Tenant-Level Roles"
+        TenantAdmin["<b>Tenant Admin</b><br/>Full tenant administration"]
+        TenantUser["<b>Tenant User</b><br/>Belongs to this tenant"]
+        ConfigMgr["<b>Tenant Config Manager</b><br/>Languages, statuses,<br/>notification templates"]
+        PlanMgr["<b>Tenant Plan Manager</b><br/>Blueprints, description<br/>templates, template types"]
+    end
+
+    InstallAdmin -.->|Can manage| TenantAdmin
+    TenantAdmin -->|Includes all of| ConfigMgr
+    TenantAdmin -->|Includes all of| PlanMgr
+
+    style InstallAdmin fill:#ff6b6b
+    style GlobalUser fill:#d3d3d3
+    style TenantAdmin fill:#4ecdc4
+    style TenantUser fill:#b8e0b8
+    style ConfigMgr fill:#45b7d1
+    style PlanMgr fill:#87ceeb
+```
 
 This guide focuses on **Tenant Admin** tasks, which are most common for organizational administrators.
 
@@ -162,8 +188,6 @@ Blueprints determine:
    - Change status to **Finalized**
    - Blueprint is now available for users
 
-<!-- ![Blueprint Editor](/images/admin/blueprints/blueprint-editor.png) -->
-*Blueprint editor showing sections and fields*
 
 Learn more in [Blueprints](admin-guide/content-management/blueprints/index.md).
 
@@ -218,8 +242,6 @@ Templates ensure consistency and completeness.
    - Change status to **Finalized**
    - Template is now available in blueprints
 
-<!-- ![Description Template Editor](/images/admin/templates/template-editor.png) -->
-*Description template editor*
 
 Learn more in [Description Templates](admin-guide/content-management/templates/index.md).
 

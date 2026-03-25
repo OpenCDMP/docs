@@ -63,7 +63,7 @@ A tenant, once created can be configured on the [Tenant Configuration](admin-gui
 
 ## Multitenancy
 
-There is always one tenant available on the platform and is called `Default`. It is the tenant assigned by default to all the entities (users, descriptions etc.), unless the tenant scope that is being selected is different. 
+There is always one tenant available on the platform and is called `Default`. It is the tenant assigned by default to all the entities (users, descriptions etc.), unless the tenant scope that is being selected is different.
 
 There are two ways a user can change the tenant scope.
 - Select a tenant from the top toolbar, on the dropdown appearing next to the notifications icon.
@@ -74,3 +74,26 @@ There are two ways a user can change the tenant scope.
 The options to change the tenant scope are only available when the logged in user belongs to one or more tenants. Otherwise, the user is attached only to the default tenant. Also, system administrators which are users having the global `Admin` role can select from all the available tenants.
 
 :::
+
+```mermaid
+graph TB
+    T1["<b>Tenant 1</b><br/>University A"]
+    T2["<b>Tenant 2</b><br/>University B"]
+    T3["<b>Tenant 3</b><br/>Research Institute"]
+
+    API["<b>Single API Service</b><br/>serves all tenants<br/>enforces tenant isolation on every query"]
+
+    DB[("<b>Single Shared Database</b><br/>all tenants' data stored together,<br/>partitioned by tenant ID")]
+
+    T1 -->|authenticated requests| API
+    T2 -->|authenticated requests| API
+    T3 -->|authenticated requests| API
+
+    API -->|reads/writes filtered by tenant_id| DB
+
+    style T1 fill:#e1f5ff
+    style T2 fill:#fff4e1
+    style T3 fill:#e1ffe1
+    style API fill:#ffe1e1
+    style DB fill:#f0e1ff
+```

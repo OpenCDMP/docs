@@ -149,13 +149,6 @@ University library provides an institutional repository (Zenodo) for data archiv
 - ✅ **Long-term preservation**: Zenodo handles archival
 - ✅ **Funder compliance**: Demonstrates data sharing
 
-### Advanced: Bidirectional Sync
-
-Some institutions implement bidirectional sync:
-- **OpenCDMP → Zenodo**: Deposit as described above
-- **Zenodo → OpenCDMP**: Update plan if dataset metadata changes in repository
-- **Benefits**: Single source of truth, always up-to-date
-
 ---
 
 ## Use Case 3: Multi-Tenant Academic Institution
@@ -215,7 +208,7 @@ A large university deploys OpenCDMP to serve multiple departments, each with the
 - Templates: Survey data, interview transcripts, statistical datasets
 - File Transformers: DOCX with anonymization guidelines, DDI XML for survey data
 - Deposit Services: Dataverse
-- Evaluators: Zenodo
+- Evaluators: OSTrails compliance checker, FAIR data principles evaluator
 - Prefilling Sources: OpenAIRE, institutional IRB database, DataCite
 
 **Humanities Tenant:**
@@ -223,7 +216,7 @@ A large university deploys OpenCDMP to serve multiple departments, each with the
 - Templates: Archival materials, digital collections, text corpora
 - File Transformers: TEI XML export, DOCX with manuscript formatting
 - Deposit Services: Humanities Commons, institutional digital libraries
-- Evaluators: DSpace
+- Evaluators: OpenAIRE FAIR evaluator
 - Prefilling Sources: ORCID, library catalogs, digital humanities registries
 
 **Medical School Tenant:**

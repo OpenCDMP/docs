@@ -4,7 +4,7 @@ description: Configuring the evaluator services
 ---
 
 # Evaluator Services
-These are the currently implemented [evaluator services](/docs/optional-services/evaluator-services.md). Here you can view all available configuration options for each evaluator service.
+These are the currently implemented [evaluator services](/optional-services/evaluator-services.md). Here you can view all available configuration options for each evaluator service.
 
 ## Evaluator RDA maDMP
 
@@ -66,10 +66,38 @@ These are the currently implemented [evaluator services](/docs/optional-services
 
 ---
 
+## Evaluator OpenAIRE FAIR
+
+### Authentication & Core Settings
+
+| Env Variable | Description | Required | Default Value | Example |
+| --- | --- | --- | --- | --- |
+| `IDP_ISSUER_URI` | Keycloak realm URL string. | Yes | - | `http://<keycloak-hostname>:<port>/realms/<realm-name>` |
+| `IDP_CLAIMS_ROLES_PATH` | Keycloak client roles path. | Yes | - | `<keycloak_client>.roles` |
+| `SECURITY_AUDIENCE` | Keycloak client scope that security is intended for. | Yes | - | `<keycloak-client-scope>` |
+
+### Logging Configuration
+
+| Env Variable | Description | Required | Default Value | Example |
+| --- | --- | --- | --- | --- |
+| `LOGGING_CONFIG_PATH` | Xml file that stores logging configuration. | No | `classpath:logging/logback.xml` | `classpath:logging/<file-name>.xml` |
+| `LOGGING_DEFAULT_LOG_LEVEL` | Level of error to store. Only 4 values can be assigned: `INFO`, `DEBUG`, `WARN`, `ERROR` | No | - | `WARN` |
+| `LOGGING_PATH` | File path to store logging. | No | - | `logs/` |
+
+### UI Configuration
+
+| Env Variable | Description | Required | Default Value | Example |
+| --- | --- | --- | --- | --- |
+| `FAIR_EVALUATOR_BASE_URL` | URL string for evaluating with FAIR Standars. | Yes | - | - |
+| `FAIR_EVALUATOR_HAS_LOGO` | Boolean value to enable evaluator logo. | No | `true` | `true` |
+| `FAIR_EVALUATOR_LOGO_PATH` | Image for evaluator logo. | No | `classpath:fair.png` | `classpath:<image-name>.<image-type>` |
+
+---
+
 ## See Also
 
-- [Main Backend Configuration](/docs/getting-started/configuration/backend/index.md) - Core backend service configuration
-- [Evaluator Service Authentication](/docs/getting-started/configuration/backend/index.md#evaluator-service-authentication) - Backend authentication setup for evaluators
+- [Main Backend Configuration](/getting-started/configuration/backend/index.md) - Core backend service configuration
+- [Evaluator Service Authentication](/getting-started/configuration/backend/index.md#evaluator-service-authentication) - Backend authentication setup for evaluators
 - [Keycloak Configuration](/getting-started/configuration/keycloak/) - Authentication setup
 
 ---

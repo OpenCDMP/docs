@@ -66,7 +66,7 @@ When you try to add new description templates or edit existing ones, the **descr
     - **Description template name**: The display name of the description.
     - **Description template code**: The unique identification code which is used internally during the imports and exports.<br/>*The `code` remains the same for all next versions of this template.*
     - **Description**: Info about the description.
-    - **Description template type**: Select the type of description from the available ones. There is more information at the [Description template types](admin-guide/content-management/template-types.md) section.
+    - **Description template type**: Select the type of description from the available ones. There is more information at the [Description template types](admin-guide/content-management/templates/template-types.md) section.
     - **Description template language**: The language of the description
     - **Editors**: The users that own this template. You can add new owners on the template by using the `Editors` dropdown below the Editors listing. You can also remove existing owners by clicking the `Remove Editor` icon on the last column.<br/>*This is optional.*
     - **DOCX template**: Here we can upload exclusively a docx file for the **[docx file transformer service](https://hub.docker.com/r/opencdmp/file-transformer-docx)** which operates as a template for the [export of a description](user-guide/descriptions/exports.md). Uploaded file alter how a description can be shown (more information about docx template [here](optional-services/file-transformers.md)).<br/>

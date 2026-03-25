@@ -9,9 +9,11 @@ The `File Transformer Services` are standalone services responsible to provide a
 
 There are currently three file transformer services implemented and integrated:
 
-- **[Docx file transformer service](https://hub.docker.com/r/opencdmp/file-transformer-docx)**: Used for PDF files and Word documents.
-- **[Rda file transformer service](https://hub.docker.com/r/opencdmp/file-transformer-rda-json)**: Used for JSON files following the [RDA specification](https://github.com/RDA-DMP-Common/RDA-DMP-Common-Standard).
-- **[Raid file transformer service](https://hub.docker.com/r/opencdmp/file-transformer-raid-json)**: Used for JSON files following the [RAID specification](https://metadata.raid.org/en/latest/).
+| Service | Supported Schema Version(s) | Docker Image | Notes |
+|---|---|---|---|
+| DOCX File Transformer | - | [file-transformer-docx](https://hub.docker.com/r/opencdmp/file-transformer-docx) | PDF files and Word documents |
+| RDA File Transformer | 1.2 | [file-transformer-rda-json](https://hub.docker.com/r/opencdmp/file-transformer-rda-json) | JSON files following the [RDA specification](https://github.com/RDA-DMP-Common/RDA-DMP-Common-Standard) |
+| RAiD File Transformer | 1.6 – 1.6.3 | [file-transformer-raid-json](https://hub.docker.com/r/opencdmp/file-transformer-raid-json) | JSON files following the [RAiD specification](https://metadata.raid.org/en/v1.6.3/core/core.html#contents) |
 
 :::note
 You can create your own file transformer. More details [here](developers/plugins/file-transformers.md).
@@ -42,14 +44,15 @@ In order for a template to work correctly in [Docx file transformer service](htt
 | `'{OPENCDMP.PLAN.ACCESS-TYPE}'`      | Access Type of the plan.|
 | `'{OPENCDMP.PLAN-REFERENCE.<REFERENCE-TYPE-CODE>'`      | Reference of the plan by [**reference type code**](admin-guide/system-configuration/reference-types.md). For example, if we want the plan's reference with type grant, the correct code is `'{OPENCDMP.PLAN-REFERENCE.GRANTS}'`|
 | `'{OPENCDMP.PLAN.CONTACTS}'`      | Contacts of the plan.|
-| `'{OPENCDMP.PLAN.USER}'`      | Users of the plan.|
-| `'{OPENCDMP.PLAN.USER-WITH-ROLES}'`      | Users of the plan with the roles.|
+| `'{OPENCDMP.PLAN.USERS}'`      | Users of the plan.|
+| `'{OPENCDMP.PLAN.USERS-WITH-ROLES}'`      | Users of the plan with the roles.|
 | `'{OPENCDMP.PLAN.STATUS}'`      | Status of the plan.|
 | `'{OPENCDMP.PLAN.CREATOR.NAME}'`      | Creator of the plan.|
 | `'{OPENCDMP.PLAN.BLUEPRINT.NAME}'`      | Name of the blueprint.|
 | `'{OPENCDMP.PLAN.DEPOSIT-IDENTIFIERS}'`      |  [**DOI**](user-guide/plans/deposit-a-plan.md) of the plan.|
 | `'{OPENCDMP.PLAN.FINALIZED-AT}'`      | Date when the plan was finalized.|
 | `'{OPENCDMP.PLAN.CREATED-AT}'`      | Date when the plan was created.|
+| `'{OPENCDMP.PLAN.FORM}'`      | Contains plan's sections and their content.|
 | `'{OPENCDMP.DESCRIPTION.ID}'`      | Id of the description.|
 | `'{OPENCDMP.DESCRIPTION.TITLE}'`      | Title of the description.|
 | `'{OPENCDMP.DESCRIPTION.DESCRIPTION}'`      | Description of the description.|
@@ -58,8 +61,17 @@ In order for a template to work correctly in [Docx file transformer service](htt
 | `'{OPENCDMP.DESCRIPTION.TEMPLATE.NAME}'`      | Name of the description template.|
 | `'{OPENCDMP.DESCRIPTION-REFERENCE.<REFERENCE-TYPE-CODE>'`      | Reference of the description by [**reference type code**](admin-guide/system-configuration/reference-types.md). For example, if we want the description's reference with type grant, the correct code is `'{OPENCDMP.DESCRIPTION-REFERENCE.GRANTS}'`|
 | `'{OPENCDMP.DESCRIPTION.CREATED-AT}'`      | Date when the description was created.|
+| `'{OPENCDMP.DESCRIPTION.FORM}'`      | Contains description's sections and their content.|
 
 :::warning
-Any code related to descriptions (`'{OPENCDMP.DESCRIPTION.<CODE>}'`) is only available when exporting a specific description, not when exporting a plan.
+- Any code related to descriptions (`'{OPENCDMP.DESCRIPTION.<CODE>}'`) is only available when exporting a specific description, not when exporting a plan.
+- `'{OPENCDMP.PLAN.FORM}'` is only available when exporting a specific plan.
+- `'{OPENCDMP.DESCRIPTION.FORM}'` is only available when exporting a specific description.
 :::
+
+---
+
+## See Also
+
+- [File Transformer Configuration](/getting-started/configuration/backend/file-transformers.md) - Environment variable reference for deploying file transformer services
 

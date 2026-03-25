@@ -4,16 +4,22 @@ description: Configuring the deposit services
 ---
 
 # Deposit Services
-There are currently five implemented [deposit services](/docs/optional-services/deposit-services.md). Here you can view all available configuration options for each deposit service.
+There are currently five implemented [deposit services](/optional-services/deposit-services.md). Here you can view all available configuration options for each deposit service.
 
 ## Zenodo 
 This service is directly integrated with [Zenodo](https://zenodo.org/).
 
-:::warning
-- To perform a successful deposit in Zenodo from OpenCDMP with OAuth 2.0 authentication, a developer application must be created on the Zenodo platform. The values of `DEPOSIT_ZENODO_CLIENT_ID`, `DEPOSIT_ZENODO_CLIENT_SECRET`, `DEPOSIT_ZENODO_REDIRECT_URL` must come from this application.
-- To perform a simple deposit in Zenodo from OpenCDMP without OAuth 2.0 authentication, a personal access token must be created on the Zenodo platform. This access token is the value of `DEPOSIT_ZENODO_ACCESS_TOKEN`. With this access token every user of the OpenCDMP can use it to make deposits in the Zenodo.
+The Zenodo deposit service supports three authentication methods:
 
-More details about authentication [here](https://developers.zenodo.org/#authentication).
+1. **System Access Token** — A single personal access token created on Zenodo is configured via `DEPOSIT_ZENODO_ACCESS_TOKEN`. All users of the OpenCDMP instance share this token when depositing.
+2. **OAuth 2.0 (per-user)** — Each user authenticates individually via Zenodo OAuth 2.0. Requires creating a developer application on Zenodo and configuring `DEPOSIT_ZENODO_CLIENT_ID`, `DEPOSIT_ZENODO_CLIENT_SECRET`, and `DEPOSIT_ZENODO_REDIRECT_URL`.
+3. **User Profile Settings** — Users store their personal Zenodo access token in their [OpenCDMP profile settings](/user-guide/profile-settings.md). The token is retrieved per-user at deposit time and remains valid until the user updates it.
+
+:::warning
+- For OAuth 2.0, a developer application must be created on the Zenodo platform.
+- For System Access Token, the configured token applies to all deposits made from this OpenCDMP instance.
+
+More details about Zenodo authentication [here](https://developers.zenodo.org/#authentication).
 :::
 
 ### Authentication & Core Settings
@@ -253,8 +259,8 @@ This service is directly integrated with [Fedora](https://fedorarepository.org/)
 
 ## See Also
 
-- [Main Backend Configuration](/docs/getting-started/configuration/backend/index.md) - Core backend service configuration
-- [Deposit Service Authentication](/docs/getting-started/configuration/backend/index.md#deposit-service-authentication) - Backend authentication setup for deposit services
+- [Main Backend Configuration](/getting-started/configuration/backend/index.md) - Core backend service configuration
+- [Deposit Service Authentication](/getting-started/configuration/backend/index.md#deposit-service-authentication) - Backend authentication setup for deposit services
 - [Keycloak Configuration](/getting-started/configuration/keycloak/) - Authentication and authorization setup
 
 ---

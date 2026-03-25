@@ -7,6 +7,41 @@ description: A guide for integration with the platform
 
 This documentation provides developers with guidelines on how to use the OAuth2 protocol offered by **Keycloak** to authenticate and integrate with the **OpenCDMP** platform. By following this guide, you will be able to securely access OpenCDMP's APIs and integrate your applications or services.
 
+## Authentication Flow Overview
+
+```mermaid
+sequenceDiagram
+    participant User
+    participant Webapp
+    participant API
+    participant Keycloak
+
+    User->>Webapp: Access OpenCDMP
+    Webapp->>Webapp: Check for token
+
+    alt No token or token expired
+        Webapp->>Keycloak: Redirect to login
+        User->>Keycloak: Enter credentials
+        Keycloak->>Keycloak: Validate credentials
+        Keycloak->>Webapp: Authorization code
+        Webapp->>Keycloak: Exchange code for token
+        Keycloak->>Webapp: Access token + Refresh token
+    end
+
+    Webapp->>API: API request with Bearer token
+    API->>Keycloak: Validate token
+    Keycloak->>API: Token valid + user info
+    API->>Webapp: Response
+    Webapp->>User: Display content
+
+    alt Token expired
+        Webapp->>Keycloak: Refresh token request
+        Keycloak->>Webapp: New access token
+    end
+```
+
+For **server-to-server** integrations (no user involved), use the **Client Credentials Flow** instead — see [Client Credentials Flow (For Server-to-Server Communication)](#client-credentials-flow-for-server-to-server-communication) below.
+
 ---
 
 ## Prerequisites
@@ -136,7 +171,7 @@ If your application receives a refresh token, you can use it to obtain new acces
 ```bash
 curl -X POST \
   'https://(KEYCLOAK_URL)/auth/realms/(REALM_NAME)/protocol/openid-connect/token' \
-  -H 'Content-Type: user-guide/x-www-form-urlencoded' \
+  -H 'Content-Type: application/x-www-form-urlencoded' \
   -d 'grant_type=client_credentials' \
   -d 'client_id=YOUR_CLIENT_ID' \
   -d 'client_secret=YOUR_CLIENT_SECRET'

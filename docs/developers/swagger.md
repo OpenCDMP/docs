@@ -1,5 +1,5 @@
 ---
-sidebar_position: 1
+sidebar_position: 2
 description: A brief guide on the API documentation tool this platform uses
 ---
 
@@ -19,6 +19,7 @@ For interactive API documentation, access the Swagger UI at: `https://your-openc
     - **/api/plan/\*\***
     - **/api/description/\*\***
     - **/api/plan-blueprint/\*\***
+    - **/api/plan-blueprint-type/\*\***
     - **/api/description-template/\*\***
     - **/api/description-template-type/\*\***
     - **/api/reference/\*\***
@@ -60,7 +61,7 @@ For interactive API documentation, access the Swagger UI at: `https://your-openc
 
 All API endpoints are relative to your OpenCDMP instance:
 
-```
+```text
 https://your-opencdmp-instance/api
 ```
 
@@ -83,5 +84,5 @@ Authorization: Bearer {access_token}
 GET /api/plan HTTP/1.1
 Host: opencdmp.example.org
 Authorization: Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9...
-Content-Type: user-guide/json
+Content-Type: application/json
 ```

@@ -10,7 +10,7 @@ description: A guide for the test deployment of OpenCDMP.
 OpenCDMP is containerized using Docker, with each service running on its own Docker container. This isolation ensures consistency across environments and simplifies deployment.
 
 ### **Simple Deployment**
-Deployment configuration is provided to simplify deployment process for testing purposes.
+Deployment configuration is provided to simplify the deployment process.
 
 #### **Prerequisites**
 1. **Docker and Docker Compose**:
@@ -44,7 +44,7 @@ Deployment configuration is provided to simplify deployment process for testing 
    sed -i 's/\r$//' deploy_opencdmp.sh
    ```
 
-1. **Verify the Deployment**:
+3. **Verify the Deployment**:
 
    ```bash
    docker compose ps

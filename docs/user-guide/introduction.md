@@ -5,138 +5,102 @@ description: A brief introduction to the core entities of the platform
 
 # Introduction
 
-
-
-
-
-## 🧩 **Core Concepts**
-
-OpenCDMP is built around four main entities that work together to provide a structured and flexible approach to managing OMPs:
-
-### **1. Blueprints**
-
-Blueprints define the overall structure of a **Plan** by specifying its **Sections** and the content within each section.
-
-- **Sections**: Each Blueprint is divided into multiple Sections, which can include various input fields and optional **Descriptions**.
-- **Customization**: Tailor Blueprints to standardize the format and requirements of OMPs according to industry standards or specific project needs.
-
-### **2. Plans**
-
-A Plan is the primary entity and main output of the OpenCDMP platform, representing a comprehensive OMP.
-
-- **Multiple Descriptions**: Contains multiple **Descriptions** of various inputs or outputs.
-- **Structured by Blueprints**: Inherits the structure and content defined by the selected Blueprint, ensuring consistency and completeness.
-- **Collaboration Features**: Invite users to a Plan with different roles and access rights—Viewer, Contributor, Reviewer, etc.
-  - **Access Levels**: Grant access to the entire Plan or specific Sections for fine-grained control.
-- **Export and Deposit Options**:
-  - **Export**: Export the Plan in various formats (XML, JSON, DOCX, PDF) for both human and machine readability.
-    - **Custom Exports**: Use the pluggable export mechanism to implement your own export plugins.
-  - **Deposit**: Deposit OMPs directly to repositories for DOI assignment.
-    - **Custom Deposits**: Use the pluggable deposit mechanism to implement your own deposit plugins for different repositories.
-
-### **3. Description Templates**
-
-Description Templates define the structure of a **Description** within a Plan, supporting a variety of input types to capture detailed information.
-
-- **Supported Input Types**:
-  - **Select**: Dropdown menus for predefined options.
-  - **Boolean Decision**: Yes/No choices.
-  - **RadioBox and CheckBox**: Multiple-choice selections.
-  - **Text**: Open-ended text fields.
-  - **File Upload**: Attach documents or files.
-  - **Date**: Calendar selection for dates.
-  - **External References**: Integration with external data sources via APIs.
-- **Customization**: Configure Description Templates to meet specific data collection needs.
-
-### **4. Descriptions**
-
-Descriptions are detailed entries within a Plan that provide information about specific inputs or outputs.
-
-- **Integration with Sections**: Included in various Sections of a Plan as defined by the Blueprint.
-- **Detailed Information**: Offer a granular level of detail for comprehensive documentation.
-
-### **5. References**
-
-References are complex information that can be used either for a **Plan** or a **Description**. The user can add his own reference or select an existing one. The source of an existing reference can be:
-
-- **Internal**: already be available for selection by the system.
-- **External**: come from external APIs.
-
-<!-- ### **5. Collaboration and Review**
-
-Enhance teamwork and ensure quality through robust collaboration and review features.
-
-- **User Roles and Access Rights**:
-  - **Viewer**: Can view the Plan or specified Sections.
-  - **Contributor**: Can edit the Plan or specified Sections.
-  - **Reviewer**: Can review and add annotations to the Plan or specified Sections.
-- **Section-Level Access**: Grant permissions at both the Plan and Section levels for precise control over user access.
-- **Annotations (Comments)**:
-  - **Adding Annotations**: Reviewers can add comments to Plans or specific Sections to provide feedback or request changes.
-  - **Annotation Statuses**: Each annotation has statuses (e.g., Open, In Progress, Resolved, Closed) to track its lifecycle and ensure issues are addressed.
-
-### **6. Notification Features**
-
-Stay informed about updates and changes with flexible notification options.
-
-- **Email Notifications**: Receive email alerts for important events, such as new annotations, status changes, or when you're invited to a Plan.
-- **In-App Notifications**: Get real-time notifications within the platform for immediate awareness of updates and activities.
-- **Customizable Settings**: Configure notification preferences to receive alerts that are most relevant to you.
-
-### **7. Flexible Export and Deposit Options**
-
-Easily share and integrate your Plans with others through various export formats and repository deposits.
-
-- **Export Options**:
-  - **Human-Readable Formats**: Export Plans as **DOCX** or **PDF** documents for easy sharing and presentation.
-  - **Machine-Readable Formats**: Export Plans as **XML** or **JSON** files for integration with other systems or data processing.
-  - **Pluggable Export Mechanism**:
-    - **Custom Export Plugins**: Develop and integrate your own export plugins to support additional formats or specialized export needs.
-    - **Extensibility**: The pluggable mechanism allows for seamless extension of export capabilities without modifying the core system.
-- **Repository Deposits**:
-  - **DOI Assignment**: Deposit OMPs directly to repositories to obtain a **Digital Object Identifier (DOI)**.
-  - **Pluggable Deposit Mechanism**:
-    - **Custom Deposit Plugins**: Implement your own deposit plugins to integrate with different repositories.
-    - **Flexibility**: Supports multiple repositories, allowing you to choose where your OMPs are deposited.
-
-### **8. Validation via Plugins**
-
-Ensure your Plans meet specific standards and requirements through customizable validation.
-
-- **Pluggable Validation Mechanism**:
-  - **Custom Validation Plugins**: Develop and integrate your own validation plugins to check Plans against particular criteria.
-  - **Flexibility**: Allows validation processes to be tailored to different industry standards, regulations, or organizational policies.
-- **Manual Validation**: Perform validation checks as needed using the integrated tools provided by your custom plugins. -->
-
-<!-- ## 🛠️ **Getting Started**
-
-1. **Create a Blueprint**: Define the overall structure of your Plan by creating a Blueprint with the necessary Sections.
-2. **Develop Description Templates**: Configure Description Templates with appropriate input types for the data you need to collect.
-3. **Assemble the Plan**: Use the Blueprint to create a new Plan, inheriting the defined Sections and structure.
-4. **Add Descriptions**: Within each Section of the Plan, add Descriptions by selecting from the available Description Templates and populating the input fields.
-5. **Invite Collaborators**: Invite users to your Plan with specific roles (Viewer, Contributor, Reviewer) and assign access rights to the entire Plan or specific Sections.
-6. **Set Up Notifications**: Configure your notification preferences for Email and In-App alerts to stay informed about updates and changes.
-7. **Utilize External References**: Configure APIs as External References to include data from external sources, ensuring your Plan has the most up-to-date information.
-8. **Review and Annotate**: Reviewers can add annotations to the Plan or specific Descriptions. Track annotation statuses to manage feedback effectively.
-9. **Validate Your Plan**:
-   - **Custom Validation**: Use validation plugins to check your Plan against specific standards or requirements.
-   - **Manual Checks**: Perform validation manually through the tools provided by your custom plugins.
-10. **Export or Deposit Your Plan**:
-    - **Export**: Choose from various export formats (XML, JSON, DOCX, PDF) to share or integrate your Plan as needed.
-      - **Custom Exports**: Implement custom export plugins if you have specific export requirements.
-    - **Deposit**: Deposit your Plan to repositories for DOI assignment.
-      - **Custom Deposits**: Implement custom deposit plugins to integrate with your preferred repositories.
-
-
-
-## 🤝 **Contributing**
-
-We welcome contributions from the community! Please check out our [contributing guidelines](developers/contributing.md) to get started.
-
-## 📄 **License**
-
-OpenCDMP is released under the [EUPL-1.2 License](https://github.com/OpenCDMP/OpenCDMP/blob/main/LICENSE).
+OpenCDMP is built around four main entities that work together to provide a structured and flexible approach to managing Output Management Plans (OMPs) such as Data Management Plans (DMPs) and Software Management Plans (SMPs).
 
 ---
 
-Start simplifying your Output Management Plans with OpenCDMP today! -->
+## How it all fits together
+
+Before diving into each concept, here is the relationship between them:
+
+1. **An administrator creates Description Templates** — each one defines a set of questions (fields) for a specific type of output, such as a dataset or software component.
+2. **An administrator creates a Blueprint** — it defines the sections a Plan will have, and specifies which Description Templates can be used in each section.
+3. **You create a Plan** using a Blueprint — the Plan inherits the section structure defined by that Blueprint.
+4. **Within each section of the Plan, you add Descriptions** — each Description follows the structure of the selected Description Template and contains the actual answers/content for that output.
+
+In short: **Blueprint → Plan structure. Description Template → Description content.**
+
+:::info Prerequisites for end users
+Before you can create a Plan, an administrator must have configured at least one Blueprint and at least one Description Template. If no blueprints appear when you try to create a plan, contact your OpenCDMP administrator.
+:::
+
+---
+
+## Core Concepts
+
+### 1. Blueprints
+
+A Blueprint defines the overall structure of a **Plan** by specifying its **Sections** and the content within each section.
+
+- Each Blueprint is divided into one or more **Sections**, which can include fields describing the plan as a whole (title, contacts, funders, etc.) and slots for **Descriptions**.
+- At least one section must allow Descriptions to be added.
+- Blueprints are created and managed by administrators. As an end user, you select a Blueprint when creating a new Plan — you cannot modify the Blueprint itself.
+
+👉 See [Blueprints](blueprints.md) for more detail.
+
+---
+
+### 2. Plans
+
+A Plan is the primary entity and main output of the OpenCDMP platform — it represents a complete OMP for a research project or output.
+
+- **Structured by a Blueprint**: when you create a Plan, you choose a Blueprint, and the Plan inherits its sections and structure.
+- **Contains Descriptions**: within the Plan's sections, you add Descriptions that detail specific inputs or outputs (datasets, software, publications, etc.).
+- **Collaborative**: invite users with different roles — Viewer, Contributor, Reviewer — at the Plan level or at individual Section level.
+- **Versioned**: create new versions of a Plan to track changes over time while preserving history.
+- **Exportable and depositable**: export in DOCX, PDF, RDA JSON, and more; deposit to repositories (Zenodo, Dataverse, etc.) to obtain a DOI.
+
+👉 See [Plans](plans/index.md) for the full guide.
+
+---
+
+### 3. Description Templates
+
+A Description Template defines the structure of a **Description** — the set of questions and fields a user must fill in for a specific type of output.
+
+- Contains **sections** and **question definitions** with various input types:
+  - Text, rich text, date, boolean (yes/no)
+  - Select, radio, checkbox (predefined options)
+  - File upload
+  - External references (linked to external data sources via API)
+- A Blueprint references which Description Templates are available in each of its sections.
+- Description Templates are created and managed by administrators.
+
+👉 See [Templates](templates.md) for more detail.
+
+---
+
+### 4. Descriptions
+
+A Description is a detailed entry within a Plan that captures information about a specific research input or output — for example, a dataset, a piece of software, or a publication.
+
+- Each Description is based on a **Description Template**, which determines what questions appear.
+- Descriptions are added inside the sections of a Plan, as defined by the Blueprint.
+- A Plan typically contains multiple Descriptions — one per output type or research asset.
+- Descriptions can be exported, reviewed, and annotated independently.
+
+👉 See [Descriptions](descriptions/index.md) for the full guide.
+
+---
+
+### 5. References
+
+References are structured pieces of information that can be linked to a Plan or a Description — for example, a funder, a grant, a researcher (with ORCID), an organization, or a license.
+
+- **Internal references**: already available in the system for selection.
+- **External references**: fetched from external APIs (e.g., grant databases, researcher registries).
+- Users can also add custom references manually.
+
+---
+
+## Typical workflow
+
+1. **Log in** to your OpenCDMP instance.
+2. **Create a new Plan** — choose a Blueprint that matches your project type.
+3. **Fill in Plan-level details** — title, language, contacts, funding information (as defined by the Blueprint sections).
+4. **Add Descriptions** — for each research output (dataset, software, etc.), add a Description using the appropriate Description Template and answer its questions.
+5. **Invite collaborators** — assign roles to team members at the Plan or Section level.
+6. **Review and finalize** — check completion, run evaluators if configured, change the plan status.
+7. **Export or deposit** — download in your required format or deposit to a repository to obtain a DOI.
+
+👉 Follow the full step-by-step in the [Getting Started Tutorial](getting-started.md).

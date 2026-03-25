@@ -57,10 +57,10 @@ There are also a sorting choices.
 ## Public Plans
 
 In addition to the `My Plans` page, there is also the `Public Plans` page where all finalized plans with public access are displayed. 
-Τhe same information is displayed for each plan, but the available user actions for them are only: `Export`, `Clone`, `All Plan Versions`.
+The same information is displayed for each plan, but the available user actions for them are only: `Export`, `Clone`, `All Plan Versions`.
 
 ![My Plans](/images/plans/my-plans/public-plan.png)
 
 :::info
-`Public Plans` page is availalble to both authorized and anonymous users. 
+`Public Plans` page is available to both authorized and anonymous users. 
 :::

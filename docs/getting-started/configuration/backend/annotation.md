@@ -5,7 +5,7 @@ description: Configuring the annotation service
 
 # Annotation Service
 
-Here you can view all available configuration options for [annotation service](/docs/optional-services/annotations.md).
+Here you can view all available configuration options for [annotation service](/optional-services/annotations.md).
 
 ## Authentication & Core Settings
 
@@ -47,8 +47,8 @@ Here you can view all available configuration options for [annotation service](/
 
 ## See Also
 
-- [Main Backend Configuration](/docs/getting-started/configuration/backend/index.md) - Core backend service configuration
-- [RabbitMQ Configuration](/docs/getting-started/configuration/backend/index.md#rabbitmq-configuration) - RabbitMQ setup in main backend
+- [Main Backend Configuration](/getting-started/configuration/backend/index.md) - Core backend service configuration
+- [RabbitMQ Configuration](/getting-started/configuration/backend/index.md#rabbitmq-configuration) - RabbitMQ setup in main backend
 - [Keycloak Configuration](/getting-started/configuration/keycloak/) - Authentication setup
 
 ---

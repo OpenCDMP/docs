@@ -8,16 +8,21 @@ description: Discover everything about the deposit services
 The `Deposit Services` are independent third party services responsible to provide a place to store and validate data objects *(in our case [plans](user-guide/plans/index.md))*. They are used as a source of trust and provide a unique key / signature *(called **DOIs** or **D**ata **O**bject **I**dentifiers)* for every data entity deposited to them.
 
 These are the currently services implemented and integrated.
-- **[Repository Deposit Zenodo](https://hub.docker.com/r/opencdmp/repository-deposit-zenodo)**: This service is directly integrated with [Zenodo](https://zenodo.org/).
 
-- **[Repository Deposit Dspace](https://hub.docker.com/r/opencdmp/repository-deposit-dspace)**: This service is directly integrated with [Dspace](https://dspace.org/).
-
-- **[Repository Deposit Ckan](https://hub.docker.com/r/opencdmp/repository-deposit-ckan)**: This service is directly integrated with [Ckan](https://ckan.org/).
-
-- **[Repository Deposit Dataverse](https://hub.docker.com/r/opencdmp/repository-deposit-dataverse)**: This service is directly integrated with [Dataverse](https://dataverse.org/).
-
-- **[Repository Deposit Fedora](https://hub.docker.com/r/opencdmp/repository-deposit-fedora)**: This service is directly integrated with [Fedora](https://fedorarepository.org/).
+| Service | Supported Version(s) | Docker Image | Notes |
+|---|---|---|---|
+| [Zenodo](https://zenodo.org/) | InvenioRDM v12.0 | [repository-deposit-zenodo](https://hub.docker.com/r/opencdmp/repository-deposit-zenodo) | OAuth 2.0 or personal access token |
+| [DSpace](https://dspace.org/) | 8.x | [repository-deposit-dspace](https://hub.docker.com/r/opencdmp/repository-deposit-dspace) | Username/password authentication |
+| [CKAN](https://ckan.org/) | 2.11.4 | [repository-deposit-ckan](https://hub.docker.com/r/opencdmp/repository-deposit-ckan) | Access token authentication |
+| [Dataverse](https://dataverse.org/) | 6.9 | [repository-deposit-dataverse](https://hub.docker.com/r/opencdmp/repository-deposit-dataverse) | Access token authentication |
+| [Fedora](https://fedorarepository.org/) | 6.x | [repository-deposit-fedora](https://hub.docker.com/r/opencdmp/repository-deposit-fedora) | Username/password authentication |
 
 :::note
 You can create your own deposit source. More details [here](developers/plugins/deposit.md).
 :::
+
+---
+
+## See Also
+
+- [Deposit Service Configuration](/getting-started/configuration/backend/deposit.md) - Environment variable reference for deploying deposit services

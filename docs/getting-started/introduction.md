@@ -28,21 +28,25 @@ description: A brief introduction to the platform features
 
 ## 🧩 **Core Concepts**
 
+OpenCDMP is built around four main entities. Understanding how they relate is the key to using the platform effectively:
+
   - #### **Blueprints**
 
-    Define the structure of a Plan by specifying its Sections and content.
+    Define the structure of a Plan by specifying its Sections and which Description Templates can be used within each section. Blueprints are created by administrators and selected by users when creating a new Plan.
 
   - #### **Plans**
 
-    Primary entities representing comprehensive OMPs, structured by Blueprints.
+    The primary output of OpenCDMP — a complete OMP such as a DMP or SMP. A Plan is structured by a Blueprint, contains multiple Descriptions, and supports collaboration, versioning, export, and repository deposit.
 
   - #### **Description Templates**
 
-    Define the structure of Descriptions within a Plan, supporting various input types.
+    Define the questions and input fields that make up a Description. Each template is tailored to a specific type of output (dataset, software, publication, etc.) and is configured by administrators.
 
   - #### **Descriptions**
 
-    Detailed entries providing information about specific inputs or outputs.
+    Detailed entries within a Plan that document a specific research output — such as a dataset or software component. Each Description follows the structure of a Description Template and contains the actual content provided by the user.
+
+**How they connect**: a Blueprint defines what sections a Plan has and which Description Templates are available in each section. When a user creates a Plan, they fill in plan-level information and then add Descriptions (one per output), each answering the questions defined by its Description Template.
 
 ---
 

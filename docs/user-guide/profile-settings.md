@@ -62,7 +62,7 @@ Only supported deposit services will be shown. If there are any available plugin
 
 ## Notification Preferences
 
-In this page you can also set your preferences on which channel you want system notifications to come through. The available channels are `InApp` and `Email`. More details about notifications can be found at the [notificaton service](optional-services/notifications/index.md) section.
+In this page you can also set your preferences on which channel you want system notifications to come through. The available channels are `InApp` and `Email`. More details about notifications can be found at the [notification service](optional-services/notifications/index.md) section.
 :::note
 Only notification that have more than one transmission channel are displayed.
 :::

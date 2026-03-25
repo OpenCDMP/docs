@@ -55,7 +55,7 @@ There are also a sorting choices.
 ## Public Descriptions
 
 In addition to the `My Descriptions` page, there is also the `Public Descriptions` page where all finalized descriptions which their finalized plans with public access are displayed. 
-Τhe same information is displayed for each description, but the available user actions for them are only: `Export`, `Copy Description`.
+The same information is displayed for each description, but the available user actions for them are only: `Export`, `Copy Description`.
 
 ![My Descriptions](/images/descriptions/my-descriptions/public-descriptions.png)
 

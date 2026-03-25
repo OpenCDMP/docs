@@ -64,6 +64,7 @@ When you try to add new plan blueprints or edit existing ones, the **plan bluepr
     - **Name**: The display name of the blueprint.
     - **Code**: The unique identification code which is used internally during the imports and exports.<br/>*The `code` remains the same for all next versions of this template.*
     - **Description**: Info about the blueprint.
+    - **Plan Blueprint type**: Select the type of blueprint from the available ones. There is more information at the [Plan blueprint types](admin-guide/content-management/blueprints/blueprint-types.md) section.
     - **DOCX template**: Here we can upload exclusively a docx file for the **[docx file transformer service](https://hub.docker.com/r/opencdmp/file-transformer-docx)** which operates as a template for the [export of a plan](user-guide/plans/exports.md). Uploaded file alter how a plan can be shown (more information about docx template [here](optional-services/file-transformers.md)).<br/>*This is optional, there is a default template.*
    
 2. **Form**: this part contains the actual content of the blueprint. A blueprint is divided into  `sections` and `fields`. There is more information about how to create a blueprint at the [Blueprint outline form](admin-guide/content-management/blueprints/index.md#blueprint-outline-form) section.

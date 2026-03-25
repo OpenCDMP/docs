@@ -5,118 +5,177 @@ description: Configure the tenant you are logged in with
 
 # Tenant Configuration
 
-On this page, we can configure the tenant we are logged in with. The configuration options are separated in the following sections.
-
-<details>
-  <summary>Default Tenant Locale</summary>
-
-Here we specify the locale configuration, which will be applied by default to the users of this tenant.
-
-- **Timezone**
-- **Culture**
-- **Language**
-</details>
-
-<details>
-  <summary>App Theme</summary>
-
-Here we specify the theme which will be applied to the UI when this tenant is selected. Every tenant can have a different theme.\
-For more information on how to customize a tenant's theme, check out [**Theming**](getting-started/configuration/frontend/theming.md)
-</details>
-
-<details>
-  <summary>Deposit Plugins</summary>
-
-Here we specify the [deposit plugins](optional-services/deposit-services.md), which will be available for this tenant. We have the option to disable system plugins by selecting the `Disable System Sources`. Also we can add plugins by pressing the `Add Source` button. For every plugin, we have to specify the following.
-
-- **Repository Id**: An identifier for the deposit plugin.
-- **Url**: The url of the endpoint the deposit listens to.
-- **Issuer Url**: The authentication token issuer url.
-- **Client Id**: The authentication client.
-- **Client Secret**: The authentication client secret.
-- **Scope**: The authentication token scope.
-- **Pdf Transformer Id**: The id of the file transformer plugin used for pdf files, if configured and available.<br/>*Please refer to the next section.*
-- **Rda Transformer Id**: The id of the file transformer plugin used for rda files, if configured and available.<br/>*Please refer to the next section.*
-</details>
-
-<details>
-  <summary>Evaluator Plugins</summary>
-
-Here we specify the [evaluator plugins](optional-services/evaluator-services.md), which will be available for this tenant. We have the option to disable system plugins by selecting the `Disable System Sources`. Also we can add plugins by pressing the `Add Source` button. For every plugin, we have to specify the following.
-
-- **Repository Id**: An identifier for the evaluator plugin.
-- **Url**: The url of the endpoint the evaluator listens to.
-- **Issuer Url**: The authentication token issuer url.
-- **Client Id**: The authentication client.
-- **Client Secret**: The authentication client secret.
-- **Scope**: The authentication token scope.
-</details>
-
-<details>
-  <summary>File Transformer Plugins</summary>
-
-Here we specify the file [file transformers plugins](optional-services/file-transformers.md), which will be available for this tenant. We have the option to disable system plugins by selecting the `Disable System Sources`. Also we can add plugins by pressing the `Add Source` button. For every plugin, we have to specify the following.
-
-- **Transformer Id**: An identifier for the transformer plugin.<br/>*This id can be added on deposit plugin configurations.*
-- **Url**: The url of the endpoint the deposit listens to.
-- **Issuer Url**: The authentication token issuer url.
-- **Client Id**: The authentication client.
-- **Client Secret**: The authentication client secret.
-- **Scope**: The authentication token scope.
-</details>
-
-<details>
-  <summary>Extra Logo</summary>
-
-Here we can upload an extra logo, which will be displayed next to the platform logo. It is a great way for tenant branding.
-</details>
-
-<details>
-  <summary>Notification Preferences</summary>
-
-Here we specify the notification preferences, which will be applied by default to the users of this tenant. For every notification case, we can specify the channels which will be used and their priority.
-</details>
-
-<details>
-  <summary>Plan Workflow</summary>
-
-Here we configure the workflow for this tenant's plans. Plan workflow is a flow with **[Plan Statuses](admin-guide/system-configuration/plan-statuses.md)** transitions. We define the starting status (when a new plan created) and the next transitions (by pressing the `Add status transition` button).<br/>*Note: If the plan workflow is not defined for a specific tenant, default is used.*
-</details>
-
-<details>
-  <summary>Description Workflow</summary>
-
-Here we configure the workflow for this tenant's descriptions. Description workflow is a flow with **[Description Statuses](admin-guide/system-configuration/description-statuses.md)** transitions. We define the starting status (when a new description created) and the next transitions (by pressing the `Add status transition` button).<br/>*Note: If the descripton workflow is not defined for a specific tenant, default is used.*
-</details>
-
-<details>
-  <summary>Default Plan Blueprint</summary>
-
-Here we configure the default **[Plan Blueprint](user-guide/blueprints.md)** that appears as an option when [creating a new plan](user-guide/plans/create-or-edit-a-plan.md#create-a-plan).<br/>*Note: If the blueprint has a new finalized version, then the default is automatically updated.*
-</details>
-
-<details>
-  <summary>Featured Entities</summary>
-
-Here we configure the Featured Entities on that appears on **[home page](user-guide/home.md)**. You have full control over which blueprints and description templates appear as quick-access options on the Home page, and the order in which you arrange them here is exactly the order they will be displayed.<br/>*Note: If no Featured Entities are configured, the Featured Blueprints section will not appear on the Home page. Description templates functionality is not operational yet.*
-</details>
-
-<details>
-  <summary>Plugin Configuration</summary>
-
-  This section allows you to configure the [file transformer](developers/plugins/file-transformers.md), [deposit](developers/plugins/deposit.md), and [evaluator](developers/plugins/evaluator.md) plugins. These settings let users customize how various elements are processed and displayed, with options that adapt dynamically based on the selected plugins.
-</details>
-
-<details>
-  <summary>View Preferences</summary>
-
-  This section allows you to configure which references will appear on the [My Plans](user-guide/plans/my-plans.md) and [My Descriptions](user-guide/descriptions/my-descriptions.md). These preferences determine the visibility of specific references depending on what you define here. The visibility of references will be dynamically controlled based on the View Preferences the admin sets<br/>
-</details>
+This page allows administrators to configure the tenant they are logged into. Settings here control the tenant's locale, branding, registered plugins, workflow, and display preferences.
 
 ## Authorization
 
-Only users that have the global **Admin** role or the tenant specific **TenantAdmin** role can access this page.
+Only users with the global **Admin** role or the tenant-specific **TenantAdmin** role can access this page.
 
 ## Navigation
 
-This page is available when the user presses the `Tenant Configuration` link from the side navigation menu.
+This page is available from the `Tenant Configuration` link in the side navigation menu.
+
+---
+
+## Default Tenant Locale
+
+Configure the default locale applied to new users of this tenant.
+
+- **Timezone** — The default timezone for date and time display.
+- **Culture** — The locale/culture setting for number and date formatting.
+- **Language** — The default interface language for users of this tenant.
+
+Users can override these defaults in their own [Profile Settings](/docs/user-guide/profile-settings.md).
+
+---
+
+## App Theme
+
+Select the visual theme applied to the UI when this tenant is active. Each tenant can have a different theme, supporting custom branding.
+
+For information on creating and customizing themes, see [Theming](/docs/getting-started/configuration/frontend/theming.md).
+
+---
+
+## Plugin Registration
+
+The following three sections register external plugin services with this tenant. Each plugin type has a separate section. Plugins registered here become available to users of this tenant.
+
+:::tip
+The **Transformer Id**, **Repository Id**, and **Evaluator Id** you enter here must exactly match the `fileTransformerId`, `repositoryId`, or `evaluatorId` returned by the plugin's configuration endpoint (`GET /api/file-transformer/formats`, `GET /api/deposit/configuration`, or `GET /api/evaluator/config`). Mismatches will cause the plugin to fail silently.
+:::
+
+### Deposit Plugins
+
+Register [repository deposit services](/docs/optional-services/deposit-services.md) available to users for DOI assignment. Toggle **Disable System Sources** to hide any platform-wide deposit plugins for this tenant.
+
+Click **Add Source** to register a new deposit plugin. For each plugin:
+
+| Field | Description |
+|-------|-------------|
+| **Repository Id** | Must match the `repositoryId` returned by the plugin's `/api/deposit/configuration` endpoint |
+| **URL** | Base URL of the running deposit service (e.g. `https://my-deposit-service.example.com`) |
+| **Issuer URL** | The Keycloak realm URL used to issue tokens for authenticating calls to this plugin (e.g. `https://keycloak.example.com/realms/opencdmp`) |
+| **Client Id** | The Keycloak client ID used by OpenCDMP to authenticate with this plugin |
+| **Client Secret** | The corresponding client secret |
+| **Scope** | The OAuth2 scope requested when authenticating (e.g. `openid`) |
+| **PDF Transformer Id** | The Transformer Id of the file transformer to use for generating PDF files when depositing. Must match a registered file transformer. |
+| **RDA Transformer Id** | The Transformer Id of the file transformer to use for generating RDA JSON files when depositing. |
+
+### Evaluator Plugins
+
+Register [evaluator services](/docs/optional-services/evaluator-services.md) available to users for plan and description assessment.
+
+Click **Add Source** to register a new evaluator plugin. For each plugin:
+
+| Field | Description |
+|-------|-------------|
+| **Repository Id** | Must match the `evaluatorId` returned by the plugin's `/api/evaluator/config` endpoint |
+| **URL** | Base URL of the running evaluator service |
+| **Issuer URL** | Keycloak realm URL for token issuance |
+| **Client Id** | Keycloak client ID |
+| **Client Secret** | Client secret |
+| **Scope** | OAuth2 scope |
+
+### File Transformer Plugins
+
+Register [file transformer services](/docs/optional-services/file-transformers.md) available to users for import and export operations.
+
+Click **Add Source** to register a new transformer plugin. For each plugin:
+
+| Field | Description |
+|-------|-------------|
+| **Transformer Id** | Must match the `fileTransformerId` returned by the plugin's `/api/file-transformer/formats` endpoint. This value is also referenced in the **PDF Transformer Id** and **RDA Transformer Id** fields of deposit plugins. |
+| **URL** | Base URL of the running transformer service |
+| **Issuer URL** | Keycloak realm URL for token issuance |
+| **Client Id** | Keycloak client ID |
+| **Client Secret** | Client secret |
+| **Scope** | OAuth2 scope |
+
+---
+
+## Extra Logo
+
+Upload an additional logo displayed alongside the platform logo in the navigation bar. This is useful for tenant-specific branding (e.g., an institution's logo).
+
+---
+
+## Notification Preferences
+
+Configure the default notification channels and their priority for each notification event in this tenant. These defaults apply to all users unless overridden in their individual profile settings.
+
+For each notification type, you can specify whether notifications are sent via **email**, **in-app**, or both, and in what order they are attempted.
+
+---
+
+## Plan Workflow
+
+Configure the lifecycle workflow for plans in this tenant. The workflow defines:
+
+- **Starting Status** — the status assigned to a plan when it is first created.
+- **Status Transitions** — which status changes are permitted (e.g., Draft → Under Review → Finalized).
+
+Click **Add status transition** to define each allowed move between statuses.
+
+:::note
+If no workflow is configured here, the platform uses its built-in default workflow. Statuses must be created first on the [Plan Statuses](/docs/admin-guide/system-configuration/plan-statuses.md) page.
+:::
+
+For a full explanation of how workflows operate, see [Plan Workflow](/docs/admin-guide/system-configuration/plan-workflow.md).
+
+---
+
+## Description Workflow
+
+Configure the lifecycle workflow for descriptions in this tenant. Works identically to the Plan Workflow but applies to individual descriptions.
+
+:::note
+If no workflow is configured, the platform uses its built-in default. Statuses must be created first on the [Description Statuses](/docs/admin-guide/system-configuration/description-statuses.md) page.
+:::
+
+For a full explanation, see [Description Workflow](/docs/admin-guide/system-configuration/description-workflow.md).
+
+---
+
+## Default Plan Blueprint
+
+Select the blueprint that pre-populates the blueprint selector when users [create a new plan](/docs/user-guide/plans/create-or-edit-a-plan.md). Users can still choose a different blueprint.
+
+:::note
+If the selected blueprint is updated to a new finalized version, this setting automatically points to the latest version.
+:::
+
+---
+
+## Featured Entities
+
+Control which blueprints appear as quick-access options on the [Home page](/docs/user-guide/home.md). The order you arrange them here is the order displayed to users.
+
+- Select blueprints to feature from the list of finalized blueprints.
+- Reorder them using the drag handles.
+- Remove any blueprint from the featured list at any time.
+
+:::note
+If no featured entities are configured, the featured section does not appear on the Home page.
+:::
+
+---
+
+## Plugin Configuration
+
+Configure the system-level and user-level values for registered plugins. When a plugin declares [ConfigurationFields](/docs/developers/plugins/common-models.md#plugin-configuration-models) in its configuration, those fields appear here for administrators to fill in.
+
+Examples of system-level configuration values:
+- A Zenodo community ID applied to all deposits
+- A template file used by a file transformer
+- An API endpoint for an evaluator
+
+User-level configuration fields appear in each user's [Profile Settings](/docs/user-guide/profile-settings.md) instead.
+
+---
+
+## View Preferences
+
+Configure which reference columns are displayed on the [My Plans](/docs/user-guide/plans/my-plans.md) and [My Descriptions](/docs/user-guide/descriptions/my-descriptions.md) listing pages.
+
+Select which reference types (e.g., Grant, Organization) should appear as columns in those views, helping users quickly identify key metadata at a glance.

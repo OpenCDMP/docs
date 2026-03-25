@@ -19,6 +19,11 @@ You can export the structure of a description in the following formats:
 *Export a description*
 
 :::tip
-- `Export` the button can be used both internally in the form and externally in [`Μy Descriptions`](user-guide/descriptions/my-descriptions.md) and [`Description Overview`](user-guide/descriptions/description-overview.md)
+- `Export` the button can be used both internally in the form and externally in [`My Descriptions`](user-guide/descriptions/my-descriptions.md) and [`Description Overview`](user-guide/descriptions/description-overview.md)
 
 :::
+
+## See Also
+
+- [Export a Plan](user-guide/plans/exports.md) — export the full plan including all descriptions
+- [File Transformer Services](optional-services/file-transformers.md) — learn about supported formats and how to add custom transformers

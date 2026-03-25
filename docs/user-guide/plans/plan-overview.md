@@ -5,7 +5,6 @@ description: See the overview of a plan and all available actions
 
 # Plan Overview
 
-<!-- TODO Add description overview url -->
 This page provides a **summary view of the entire plan**, displaying all key information grouped by category. It includes general metadata such as the title, description, language, contact details, researchers involved, associated organizations, and funding details (e.g., grants and funding organizations).
 
 It also shows licensing and access rights, any included [descriptions](user-guide/descriptions/index.md), and active users with their roles and assigned sections within the plan.
@@ -57,3 +56,10 @@ All the users can access this page.
 ## Navigation
 
 This view is available when the user select a plan either from [`Home`](user-guide/home.md) or from [`My Plans`](user-guide/plans/my-plans.md) page.
+
+## See Also
+
+- [Export a Plan](user-guide/plans/exports.md) — download in PDF, DOCX, JSON, or XML
+- [Deposit a Plan](user-guide/plans/deposit-a-plan.md) — publish to a repository and receive a DOI
+- [Evaluators](user-guide/plans/evaluators.md) — assess your plan against standards
+- [Invite Collaborators](user-guide/plans/invite-collaborators.md) — manage team access and roles

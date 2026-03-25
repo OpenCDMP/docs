@@ -10,264 +10,356 @@ sidebar_position: 4
 
 ## Overview
 
-The **[common-models](https://github.com/OpenCDMP/common-models)** repository contains Java classes that are central to the functioning of the OpenCDMP platform. These models define the data structures used for: [plans](user-guide/plans/index.md), [descriptions](user-guide/descriptions/index.md), [file transformers](developers/plugins/file-transformers.md), [repository deposits](developers/plugins/deposit.md) and [evaluators](developers/plugins/evaluator.md). By using these common models, services in OpenCDMP can maintain consistent communication, ensuring interoperability and data integrity
+The **[common-models](https://github.com/OpenCDMP/common-models)** repository contains Java classes that form the contract between the OpenCDMP platform and all its plugins — [file transformers](/docs/developers/plugins/file-transformers.md), [repository deposit services](/docs/developers/plugins/deposit.md), and [evaluators](/docs/developers/plugins/evaluator.md). Every plugin receives and returns instances of these models when communicating with the platform.
 
-## Key Models
+## Maven Dependency
 
-### 1. PlanModel.java
+```xml
+<dependency>
+    <groupId>org.opencdmp</groupId>
+    <artifactId>common-models</artifactId>
+    <version>1.2.0</version>
+</dependency>
+```
 
-This class defines the structure for a **Plan** used across OpenCDMP.
+---
+
+## FileEnvelopeModel
+
+`FileEnvelopeModel` is a generic file wrapper used wherever the platform or a plugin needs to pass binary file data — export outputs, import inputs, logo images, etc.
+
+```java
+public class FileEnvelopeModel {
+    private String filename;   // Original filename, including extension (e.g. "plan.docx")
+    private String fileRef;    // Internal storage reference or identifier
+    private String mimeType;   // MIME type of the file (e.g. "application/vnd.openxmlformats-officedocument.wordprocessingml.document")
+    private byte[] file;       // Raw binary file content
+}
+```
+
+---
+
+## PlanModel
+
+`PlanModel` represents a complete plan and is the primary input to export, deposit, and evaluation plugins.
 
 ```java
 public class PlanModel {
-
     private UUID id;
     private short version;
     private String label;
     private String description;
 
-    /*
-    * Enum class that have either Public or Restricted
-    */
+    // PlanAccessType enum: Public | Restricted
     private PlanAccessType accessType;
-     
-    /*
-    * Object that contains plan status info (id, name, internalStatus)
-    */
-    private PlanStatus status;
-    
-    /*
-    * Object that contains plan owner info (id, name, usercontact info)
-    */
-    private UserModel creator; 
-    
-    /*
-    * Object that contains plan blueprint info (id, label, definition with all available sections, status, groupId)
-    */
+
+    // Contains id, display name, and internalStatus (Draft | Finalized)
+    private PlanStatusModel status;
+
+    // The user who created this plan (id, name, email)
+    private UserModel creator;
+
+    // The blueprint that defines this plan's structure
     private PlanBlueprintModel planBlueprint;
 
-    /*
-    * Object that contains properties for the plan. Properties are the values from blueprint sections and contacts if blueprint has contact field.
-    */
+    // The values entered in blueprint fields (e.g. contacts, extra fields)
     private PlanPropertiesModel properties;
-    
-    /*
-    * List of objects that contains info of deposit sources for the plan. Each class contains id, doi, and repositoryId
-    */
+
+    // DOIs assigned to this plan from deposit services
     private List<EntityDoiModel> entityDois;
 
-    /*
-    * List of objects that contains descriptions for the plan
-    */
+    // All descriptions belonging to this plan
     private List<DescriptionModel> descriptions;
 
-    /*
-    * List of objects that contains plan's users info. Each object contains id, entire user model, role and section id that has this role 
-    */
+    // Users and their roles on this plan
     private List<PlanUserModel> users;
-    
-    /*
-    * List of objects that contains all references that used in this plan. Each object contains id, reference object, and field id that contains this reference
-    */
+
+    // References linked to this plan (grants, organizations, etc.)
     private List<PlanReferenceModel> references;
 
-    /*
-    * List of objects that all description templates that used in this plan. Each object contains description template group id and section id that contains this template
-    */
+    // Description templates used across this plan's sections
     private List<PlanDescriptionTemplateModel> descriptionTemplates;
 
-    /*
-    * Object that stores the plan as a pdf file. Contains file name, file reference, type and the content of the file in byte array type 
-    */
+    // Pre-generated file representations of this plan (may be null)
     private FileEnvelopeModel pdfFile;
-
-    /*
-    * Object that stores the plan as a json file. Contains file name, file reference, type and the content of the file in byte array type 
-    */
     private FileEnvelopeModel rdaJsonFile;
     private FileEnvelopeModel raidJsonFile;
     private FileEnvelopeModel supportingFilesZip;
 
-    /*
-    * The doi for the last deposit plan's version 
-    */
+    // DOI from the previous deposited version (for updates)
     private String previousDOI;
 
-    /*
-    * Τhe latest date a plan was finalized  
-    */
     private Instant finalizedAt;
-
-    /*
-    * Τhe latest date a plan was deposited  
-    */
     private Instant publicAfter;
-
-    /*
-    * Τhe latest date a plan was updated  
-    */
     private Instant updatedAt;
-
-    /*
-    * Τhe date a plan was created  
-    */
     private Instant createdAt;
     private String language;
-
-    // Getters and Setters...
 }
 ```
 
-### 2. DescriptionModel.java
+### PlanBlueprintModel
 
-This class represents the structure for **Descriptions** related to a Plan, typically providing detailed explanations of the content or components of the plan.
+Describes the structural template of the plan — its sections and fields.
+
+```java
+public class PlanBlueprintModel {
+    private UUID id;
+    private String label;
+    private String description;
+    private DefinitionModel definition;  // Contains sections and plugin configs
+    private PlanBlueprintTypeModel type;
+    // PlanBlueprintStatus enum: Draft | Finalized
+    private PlanBlueprintStatus status;
+    private UUID groupId;
+}
+```
+
+The `DefinitionModel` contains the list of `SectionModel` objects, each of which holds the configured `FieldModel` entries (system fields, reference type fields, extra fields, upload fields).
+
+### PlanPropertiesModel
+
+Holds the actual values entered by users in the blueprint's fields.
+
+```java
+public class PlanPropertiesModel {
+    // Values for each blueprint field (field ID → value)
+    private List<PlanBlueprintValueModel> planBlueprintValues;
+    // Contact entries if the blueprint includes a contact field
+    private List<PlanContactModel> contacts;
+}
+```
+
+### PlanUserModel
+
+Represents a user's membership and role on a plan.
+
+```java
+public class PlanUserModel {
+    private UserModel user;        // Full user info (id, name, email)
+    private PlanUserRole role;     // Enum: Owner | Member | Viewer
+    private UUID sectionId;        // Section-level role scope (null = plan-level)
+}
+```
+
+### PlanReferenceModel
+
+Links an external reference to a plan (e.g., a grant, organization, or researcher).
+
+```java
+public class PlanReferenceModel {
+    private UUID id;
+    private ReferenceModel reference;   // The reference record itself
+    private PlanReferenceDataModel data; // Which blueprint field holds this reference
+}
+```
+
+---
+
+## DescriptionModel
+
+`DescriptionModel` represents one description within a plan. It contains both the template structure and the user's answers.
 
 ```java
 public class DescriptionModel {
-
     private UUID id;
     private String label;
     private String description;
     private List<String> tags;
 
-    /*
-    * Object that contains description status info (id, name, internal status)
-    */
-    private DescriptionStatus status;
+    // Contains id, display name, and internalStatus (Draft | Finalized | Canceled)
+    private DescriptionStatusModel status;
 
-    /*
-    * Object that contains description Template info (id, label, description, description template type, groupId, version, language, definition of available queries and inputs)
-    */
+    // The template that defines this description's questions
     private DescriptionTemplateModel descriptionTemplate;
+
+    // The plan this description belongs to
     private PlanModel plan;
 
-    /*
-    * In which plan's section description was created
-    */
+    // Which blueprint section this description was created under
     private UUID sectionId;
+
     private Instant createdAt;
 
+    // The user's answers to all questions in this description
     private PropertyDefinitionModel properties;
-    
-    /*
-    * Adjusts which fields are visible in the body
-    */
-    private List<VisibilityStateModel> visibilityStates;
 
-    // Getters and Setters...
+    // Controls which fields are currently visible (based on visibility rules)
+    private List<VisibilityStateModel> visibilityStates;
 }
 ```
 
-### 3. ConfigurationField.java
+### DescriptionTemplateModel
 
-This class represents the structure for **Configuration** related to Plugins. This can be used for additional configurations in [file transformers](developers/plugins/file-transformers.md#3-filetransformerconfigurationjava), [repository deposits](developers/plugins/deposit.md#3-depositconfigurationjava) and [evaluators](developers/plugins/evaluator.md#3-evaluatorconfigurationjava).
+Describes the question structure of a description template (pages → sections → field sets → fields).
+
+```java
+public class DescriptionTemplateModel {
+    private UUID id;
+    private String label;
+    private String description;
+    private DescriptionTemplateTypeModel type;
+    private UUID groupId;
+    private Short version;
+    private String language;
+    private DefinitionModel definition;  // Contains pages and plugin configs
+}
+```
+
+The `DefinitionModel` contains `PageModel` objects. Each page has `SectionModel` objects (which can be nested). Each section contains `FieldSetModel` objects, which hold the individual `FieldModel` question definitions.
+
+Each `FieldModel` in the template contains:
+- `id` — unique identifier
+- `semantics` — semantic tags used for prefilling and interoperability
+- `validations` — e.g., `Required`, `Url`
+- `data` — a `BaseFieldDataModel` subclass describing the field type (free text, date, reference, boolean, etc.)
+
+### PropertyDefinitionModel — Description Answers
+
+`PropertyDefinitionModel` holds all the answers a user has provided for a description. It mirrors the template structure using field set IDs as keys.
+
+```java
+public class PropertyDefinitionModel {
+    // Key: field set ID from the template; Value: the answers for that field set
+    private Map<String, PropertyDefinitionFieldSetModel> fieldSets;
+}
+```
+
+**`PropertyDefinitionFieldSetModel`** — answers for one field set, supporting multiplicity (a field set can have multiple item rows):
+
+```java
+public class PropertyDefinitionFieldSetModel {
+    private List<PropertyDefinitionFieldSetItemModel> items;
+    private String comment;  // Optional comment on the field set
+}
+```
+
+**`PropertyDefinitionFieldSetItemModel`** — one row of answers within a field set:
+
+```java
+public class PropertyDefinitionFieldSetItemModel {
+    // Key: field ID from the template; Value: the answer for that field
+    private Map<String, FieldModel> fields;
+    private Integer ordinal;  // Position when multiple items exist
+}
+```
+
+**`FieldModel`** — the actual answer to a single question. The field type determines which value property is populated:
+
+```java
+public class FieldModel {
+    private String id;
+    private String textValue;              // Free text, radio, select, textarea
+    private FileEnvelopeModel file;        // Upload field
+    private Boolean booleanValue;          // Checkbox/boolean field
+    private List<String> textListValue;    // Multi-select or tag fields
+    private Instant dateValue;             // Date picker field
+    private List<ReferenceModel> references;             // Reference type field
+    private ExternalIdentifierModel externalIdentifier;  // External identifier field
+}
+```
+
+:::tip
+To read a user's answer to a specific question, look up its field set ID in `properties.getFieldSets()`, then look up the field ID within an item's `fields` map. Only one value property will be non-null — determined by the field type defined in the template.
+:::
+
+### VisibilityStateModel
+
+Tracks which fields are currently visible in a description (after visibility rules are evaluated).
+
+```java
+public class VisibilityStateModel {
+    private String fieldId;   // The field whose visibility is tracked
+    private Integer ordinal;  // Item index (for multiplicity)
+    private boolean visible;
+}
+```
+
+---
+
+## ReferenceModel
+
+`ReferenceModel` represents a linked external record — a grant, organization, researcher, publication, or any other [reference type](/docs/admin-guide/system-configuration/reference-types.md).
+
+```java
+public class ReferenceModel {
+    private UUID id;
+    private String label;
+    private ReferenceTypeModel type;          // Reference type (id, name, code, definition)
+    private String description;
+    private ReferenceDefinitionModel definition; // Custom fields and their values
+    private String reference;                 // The primary identifier value (e.g., ORCID iD, ROR ID)
+    private String abbreviation;
+    private String source;
+    // ReferenceSourceType enum: Internal | External
+    private ReferenceSourceType sourceType;
+}
+```
+
+---
+
+## Plugin Configuration Models
+
+These models allow plugins to declare configurable fields that appear in the OpenCDMP admin interface. Administrators fill in these fields when registering the plugin, and the values are passed back to the plugin at runtime.
+
+### ConfigurationField
+
+Declares one configurable field for a plugin.
 
 ```java
 public class ConfigurationField {
-    /*
-    *Identifier for the configurable plugin.
-    */ 
-    private String code;
-
-    /*
-    *Enum class that have either String or File
-    */
-    private DataType type;
-
-    /*
-    *Identifier for the plugin.
-    */
-    private String label;
-
-    /*
-    * List of Enum class that have either Plan or Description
-    */
-    private List<PluginEntityType> appliesTo;
-
-    /*
-    * Value to check if the field need encryption
-    */
-    private boolean authInfo;
-
+    private String code;                      // Internal key for this field
+    private DataType type;                    // DataType enum: String | File
+    private String label;                     // Display label in the admin UI
+    private List<PluginEntityType> appliesTo; // PluginEntityType: Plan | Description
+    private boolean authInfo;                 // If true, the value is treated as a credential and encrypted at rest
 }
 ```
 
-### 4. PluginModel.java
+**`configurationFields`** are filled in by the administrator when registering the plugin (e.g., an API key or a template file).
 
-This class contains information from ConfigurationField that are central to configuring the plugins. These model defines the additional configurations used for: [file transformers](developers/plugins/file-transformers.md), [repository deposits](developers/plugins/deposit.md) and [evaluators](developers/plugins/evaluator.md). 
+**`userConfigurationFields`** are filled in by individual users via their [profile settings](/docs/user-guide/profile-settings.md) (e.g., a personal access token for a deposit repository).
+
+### PluginModel
+
+When a plugin's configuration fields have been filled in, the values are passed back to the plugin through `PluginModel` instances attached to the plan blueprint or description template.
 
 ```java
 public class PluginModel {
-
-    /*
-    *Identifier for the configurable plugin.
-    */ 
-    private String code;
-
-    /*
-    *Enum class that have the available plugins. Evaluator, File Transformer, Deposit
-    */
-    private PluginType type;
-
-    /*
-    * List of objects that contains all plugin data that used in the selected plugin.
-    */
-    private List<PluginFieldModel> fields;
-
-    /*
-    * List of objects that contains all plugin user data that used in the selected plugin.
-    */
-    private List<PluginUserFieldModel> fields;
-
-
-    // Getters and Setters...
+    private String code;            // Matches the plugin's identifier
+    private PluginType type;        // PluginType enum: FileTransformer | Deposit | Evaluation
+    private List<PluginFieldModel> fields;         // System-level configured values
+    private List<PluginUserFieldModel> userFields; // User-level configured values
 }
 ```
-These model extracts data from every available plugin from [configuration field](developers/plugins/common-models.md#3-configurationfieldjava). 
+
+**`PluginFieldModel`** and **`PluginUserFieldModel`** — a single resolved configuration value:
+
 ```java
 public class PluginFieldModel {
-
-    /*
-    *code of the field.
-    */ 
-    private String code;
-
-    /*
-    *the text value of the field (if exist).
-    */
-    private String textValue;
-
-    /*
-    *the file value of the field (if exist)
-    */
-    private FileEnvelopeModel file;
-
-    // Getters and Setters...
+    private String code;              // Matches ConfigurationField.code
+    private String textValue;         // Value if type is String
+    private FileEnvelopeModel file;   // Value if type is File
 }
 ```
 
-These model extracts data from every available plugin from [configuration field](developers/plugins/common-models.md#3-configurationfieldjava). 
-```java
-public class PluginUserFieldModel {
+To retrieve a configuration value in your plugin implementation, find the `PluginModel` in `plan.getPlanBlueprint().getDefinition().getPlugins()` where `type` matches your plugin type, then look up the field by `code`.
 
-    /*
-    *code of the field.
-    */ 
-    private String code;
+---
 
-    /*
-    *the text value of the field (if exist).
-    */
-    private String textValue;
+## Key Enums
 
-    /*
-    *the file value of the field (if exist)
-    */
-    private FileEnvelopeModel file;
+| Enum | Values |
+|------|--------|
+| `PlanAccessType` | `Public`, `Restricted` |
+| `PlanStatus` | `Draft` (0), `Finalized` (1) |
+| `DescriptionStatus` | `Draft` (0), `Finalized` (1), `Canceled` (2) |
+| `PlanUserRole` | `Owner`, `Member`, `Viewer` |
+| `PluginType` | `FileTransformer` (0), `Deposit` (1), `Evaluation` (2) |
+| `PluginEntityType` | `Plan` (0), `Description` (1) |
+| `DataType` | `String`, `File` |
+| `ReferenceSourceType` | `Internal`, `External` |
 
-    // Getters and Setters...
-}
-```
+---
 
 ## Key Features
 
@@ -286,8 +378,6 @@ For questions or support regarding this repository, please contact:
 
 - **Email**: opencdmp at cite.gr
 
-## End notes
-
 :::note
-You can view `Common Models` source code [here](https://github.com/OpenCDMP/common-models).
+You can view the `Common Models` source code [here](https://github.com/OpenCDMP/common-models).
 :::

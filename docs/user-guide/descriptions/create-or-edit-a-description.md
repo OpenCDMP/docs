@@ -55,3 +55,20 @@ To change description `status` you must save or discard all editor changes first
 To `finalize` a description, you must answer all the required questions. If the description is not valid for finalization yet, all unanswered required questions are marked red and you will have to continue editing.
 
 :::
+
+### Working with References in a Description
+
+When editing a plan, some fields require selecting values from predefined lists instead of typing free text.  
+These lists are called **[References](user-guide/references.md)**.
+
+If the required value doesn’t exist in the available options, you can **add it manually**.
+Learn more about how to add a manual reference in the [Adding a Reference Manually](user-guide/references.md#adding-a-reference-manually) section.
+
+---
+
+## Next Steps
+
+- [Description Overview](user-guide/descriptions/description-overview.md) — view description details and available actions
+- [Prefill a Description](user-guide/descriptions/prefill-a-description.md) — use external sources to automatically populate answers
+- [Export a Description](user-guide/descriptions/exports.md) — download your description as PDF, DOCX, or XML
+

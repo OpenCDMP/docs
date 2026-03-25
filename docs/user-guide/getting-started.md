@@ -1,5 +1,5 @@
 ---
-sidebar_position: 1
+sidebar_position: 2
 title: Getting Started Tutorial
 description: Complete walkthrough for creating your first plan in OpenCDMP
 ---
@@ -23,6 +23,15 @@ Before you begin, ensure you have:
 - ✅ Basic information about your research project or output
 - ✅ (Optional) Collaborators' email addresses if you plan to work as a team
 
+:::warning Administrator setup required
+Before you can create a Plan, an administrator must have configured at least one **Blueprint** and at least one **Description Template**.
+
+- **If no blueprints appear** when you try to create a plan, contact your OpenCDMP administrator.
+- **If no description templates appear** when you try to add a description, the administrator needs to create and publish templates first.
+
+Not sure what these are? Read the [Introduction](introduction.md) for an overview of how Blueprints, Description Templates, Plans, and Descriptions relate to each other.
+:::
+
 ---
 
 ## Step 1: Log In to OpenCDMP
@@ -32,8 +41,6 @@ Before you begin, ensure you have:
 3. Enter your credentials or use Single Sign-On (SSO) based on your Keycloak configuration
 4. After successful login, you'll see the OpenCDMP dashboard
 
-<!-- ![OpenCDMP Dashboard](/images/dashboard/main-dashboard.png) -->
-*OpenCDMP Dashboard after login*
 
 :::info First Time User?
 If this is your first time logging in, you may be prompted to complete your profile. Add your name, email, and any other required information.
@@ -60,8 +67,6 @@ If you have a plan from another system:
 
 For this walkthrough, we'll use **Option A: Create from scratch**.
 
-<!-- ![New Plan Dialog](/images/plans/create-a-plan/new_plan_popup_dialog.png) -->
-*New Plan creation dialog*
 
 ---
 
@@ -83,8 +88,6 @@ A **Blueprint** defines the structure and sections of your plan. Think of it as 
 The first option in the list is usually your organization's default blueprint. If you're unsure which to choose, the default is often a good starting point.
 :::
 
-<!-- ![Blueprint Selection](/images/plans/create-a-plan/plan-editor-first-step.png) -->
-*Selecting a blueprint*
 
 ---
 
@@ -135,8 +138,6 @@ Notice the **progress bar** at the top showing completion percentage.
 You can save your work at any time. The plan will be saved as a **Draft** until all required fields are completed.
 :::
 
-<!-- ![Plan Editor Interface](/images/plans/create-a-plan/plan-editor.png) -->
-*Plan Editor showing sections and progress*
 
 ---
 
@@ -229,8 +230,6 @@ Most plans have multiple descriptions. For example:
 Add as many descriptions as needed to cover all outputs.
 :::
 
-<!-- ![Description Editor](/images/descriptions/description-editor.png) -->
-*Description template editor*
 
 ---
 
@@ -309,8 +308,6 @@ OpenCDMP uses a workflow system:
 Learn more about [plan workflows](user-guide/plans/plan-workflow.md).
 :::
 
-<!-- ![Plan Status Change](/images/plans/workflow/status-change.png) -->
-*Changing plan status to Finalized*
 
 ---
 

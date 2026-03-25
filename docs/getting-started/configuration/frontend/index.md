@@ -29,8 +29,6 @@ The following table's environment variables are defined inside the `.env` file o
 | --- | --- | --- | --- | --- |
 | `KPI_SERVICE_ENABLED` | Boolean value that enables KPI service (Statistics dashboard) | No | `false` | `true` |
 | `KPI_SERVICE_ADDRESS` | KPI service URL | Yes* | - | `http://<hostname>:<port>/<kpi-path>` |
-| `KPI_SERVICE_DASHBOARD_ID` | KPI (Statistics) dashboard Id | Yes* | - | `<dashboard-id>` |
-| `KPI_SERVICE_KEYWORD_FILTER` | Filtering keywords for the KPI dashboard | No | - | `<filter-value-code>` | 
 
 *Required only if `KPI_SERVICE_ENABLED` is set to `true`
 -->
@@ -73,6 +71,30 @@ The file structure is as follows:
 | Variable | Description | Required | Default Value | Example |
 | --- | --- | --- | --- | --- |
 | `address` | Annotation service URL string | No | `null` | `http://<hostname>:<port>/<path>` |
+
+<!-- kpi disabled -->
+<!-- ### KPI Service
+    ```
+        "kpi_service": {
+            "enabled": KPI_SERVICE_ENABLED,
+            "address": "KPI_SERVICE_ADDRESS",
+            "dashboards": [
+                {
+                    "dashboardId": "KPI_SERVICE_DASHBOARD_ID",
+                    "keywordFilter": "KPI_SERVICE_KEYWORD_FILTER",
+                    "availableToRoles": "KPI_SERVICE_AVAILABLE_TO_ROLES"
+                }
+            ]
+        },
+    ```
+| Variable | Description | Required | Default Value | Example |
+| --- | --- | --- | --- | --- |
+| `enabled` | Boolean value that enables KPI service (Statistics dashboard) | No | `false` | `true` |
+| `address` | KPI service URL | Yes | - | `http://<hostname>:<port>/<kpi-path>` |
+| `dashboards` | KPI (Statistics) dashboard Id | Yes | - | `<dashboard-id>` |
+| `keywordFilter` | Filtering keywords for the KPI dashboard | No | - | `<filter-value-code>` | 
+| `availableToRoles` | Filtering roles for the OpenCDMP to show the statistics | No | - | `<available-role-code>` | 
+ -->
 
 ### Logging
 

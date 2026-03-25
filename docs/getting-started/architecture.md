@@ -5,145 +5,99 @@ description: A guide for the platform architecture
 
 # System Architecture
 
-OpenCDMP is designed using a **microservices architecture**, leveraging Docker containers for deployment and scalability. This approach allows each component of the system to be developed, deployed, and scaled independently, ensuring flexibility and robustness in managing Output Management Plans (OMPs).
+OpenCDMP is built on a **microservices architecture** — each capability runs as an independent Docker container, communicating through well-defined APIs and an async message bus. This allows each service to be developed, deployed, and scaled independently.
 
-## Overview
+```mermaid
+graph TB
+    Users(["Users"])
+    KC(["Keycloak<br/>OAuth2 / OIDC"])
 
-The architecture comprises multiple services, each responsible for specific functionalities within the OpenCDMP platform. These services communicate with each other through well-defined APIs and messaging queues, ensuring seamless integration and data flow.
+    Nginx["Nginx<br/>Reverse Proxy"]
 
-Below is a list of the services included in the architecture:
+    Webapp["Webapp<br/>Angular"]
+    API["API Service<br/>Java / Spring Boot"]
 
-- **Nginx Reverse Proxy**: Acts as the entry point and reverse proxy. It is the only service that needs external connectivity.
-- **API Service**: Main APIs handling the core business logic.
-- **Webapp Service**: Frontend of the application, providing the user interface.
-- **Notification Service**: Handles notifications (Email and In-App). *Closed source project, but with a free-to-use license.*
-- **Annotation Service**: Manages annotations (comments) and reviews. *Closed source project, but with a free-to-use license.*
-- **Repository Deposit Services**: Multiple services acting as deposit plugins to repositories for DOI assignment.
-- **File Transformation Services**: Multiple services acting as export/import plugins for file transformations.
-- **Keycloak**: Authentication server for managing users and roles.
-- **PostgreSQL**: Main database storage for persisting data.
-- **RabbitMQ**: Message broker for microservices intercommunication.
-- **Elasticsearch**: Used for indexing and searching data.
-- **PDF Generator Service**: Generates PDF documents from Plans.
+    MQ["RabbitMQ<br/>Message Broker"]
+    FileT["File Transformers<br/>DOCX · PDF · RDA JSON · RAiD"]
+    DepositS["Deposit Services<br/>Zenodo · Dataverse · …"]
 
-The following diagram provides a high-level overview of the architecture:
+    Annotation["Annotation<br/>Service"]
+    Notification["Notification<br/>Service"]
+    Repos(["External<br/>Repositories"])
 
-![Export plans](architecture.png)
+    DB[("PostgreSQL")]
+    ES[("Elasticsearch")]
 
-### **Services Breakdown**
+    Users -->|HTTPS| Nginx
+    Users -->|login| KC
+    Nginx --> Webapp & API
+    API -->|validate tokens| KC
+    API -->|async events| MQ
+    MQ --> Annotation & Notification
+    API --> FileT & DepositS
+    API --> DB & ES
+    Annotation & Notification --> DB
+    DepositS --> Repos
 
-#### **Nginx Reverse Proxy**
+    classDef external fill:#f5f5f5,stroke:#9e9e9e
+    classDef gateway fill:#c8e6c9,stroke:#388e3c
+    classDef core fill:#bbdefb,stroke:#1565c0
+    classDef eventing fill:#fff9c4,stroke:#f9a825
+    classDef plugins fill:#e1bee7,stroke:#6a1b9a
+    classDef data fill:#dcedc8,stroke:#558b2f
 
-- **Purpose**: Acts as the gateway to the application, routing incoming HTTP/HTTPS requests to the appropriate internal services.
-- **Features**:
-  - SSL termination
-  - Load balancing
-  - Reverse proxying to backend services
-- **Notes**:
-  - It is the only service exposed to the external network.
-  - Enhances security by hiding internal services from direct external access.
+    class Users,KC,Repos external
+    class Nginx gateway
+    class Webapp,API core
+    class MQ,Annotation,Notification eventing
+    class FileT,DepositS plugins
+    class DB,ES data
+```
 
-#### **API Service**
+---
 
-- **Purpose**: Serves as the main backend, handling core business logic and API endpoints.
-- **Features**:
-  - Processes requests from the Webapp Service.
-  - Interacts with PostgreSQL for data persistence.
-  - Interacts with Elasticsearch for indexing.
-  - Evaluating authentication against Keycloak.
-  - Communicates with other microservices via RabbitMQ.
-  - Implements RESTful APIs for frontend consumption.
+## Services
 
-#### **Webapp Service**
+### Nginx — Reverse Proxy
 
-- **Purpose**: Provides the frontend user interface for OpenCDMP.
-- **Features**:
-  - Built using modern web technologies.
-  - Communicates with the API Service.
-  - Offers a user-friendly interface for managing Plans, Blueprints, Templates, etc.
+The sole service exposed to the internet. Handles SSL/TLS termination, routes incoming requests to the Webapp or API, and hides all internal services from direct external access.
 
-#### **Notification Service**
+### Webapp — Angular Frontend
 
-- **Purpose**: Manages email and in-app notifications.
-- **Features**:
-  - Sends notifications based on events (e.g., Annotations added, Plan updates, Invitations).
-  - *Closed source*, but available under a free-to-use license.
-- **Notes**:
-  - Communicates with other services via RabbitMQ.
-  - Configurable notification preferences.
-  - Configurable notification templates.
+Serves the browser-based user interface. Communicates exclusively with the API Service and authenticates users via Keycloak.
 
-#### **Annotation Service**
+### API Service — Java Backend
 
-- **Purpose**: Handles annotations (comments) and the review process.
-- **Features**:
-  - Allows reviewers to add annotations to Plans or specific Sections.
-  - Tracks annotation statuses for lifecycle management.
-  - *Closed source*, but available under a free-to-use license.
-- **Notes**:
-  - Enhances collaboration and quality control.
+The core of the platform. Handles all business logic, exposes the REST API consumed by the Webapp, orchestrates plugin calls (file transformers, deposit services), writes to PostgreSQL, indexes to Elasticsearch, and publishes events to RabbitMQ.
 
-#### **Repository Deposit Services**
+### Annotation Service
 
-- **Purpose**: Deposits OMPs to external repositories for DOI assignment.
-- **Features**:
-  - Multiple services acting as plugins for different repositories.
-  - Pluggable mechanism to implement custom deposit plugins.
-- **Examples**:
-  - Integration with repositories like Zenodo, Dataverse, etc.
+Manages the annotations (comments and reviews) lifecycle — creating, resolving, and tracking annotation threads on plans and descriptions. *Closed source, free-to-use license.*
 
-#### **File Transformation Services**
+### Notification Service
 
-- **Purpose**: Manages export/import functionalities.
-- **Features**:
-  - Supports exporting Plans and Descriptions in formats like XML, JSON, DOCX, and PDF.
-  - Multiple services acting as plugins for different file transformations.
-  - Pluggable mechanism to implement custom export/import plugins.
+Sends email and in-app notifications triggered by platform events (invitations, status changes, annotations, etc.). Templates and preferences are configurable. *Closed source, free-to-use license.*
 
-#### **Keycloak**
+### RabbitMQ — Message Broker
 
-- **Purpose**: Provides authentication and authorization.
-- **Features**:
-  - Manages user identities, roles, and permissions.
-  - Supports protocols like OpenID Connect, OAuth 2.0, and SAML 2.0.
-- **Notes**:
-  - Centralized security management.
-  - Integrates with the Webapp and API Services for secure access control.
+Decouples the API Service from the Annotation and Notification services. The API publishes domain events; downstream services subscribe and react asynchronously.
 
-#### **PostgreSQL**
+### PostgreSQL — Primary Database
 
-- **Purpose**: Main relational database for storing application data.
-- **Features**:
-  - Stores data for Plans, Users, Templates, Annotations, etc.
-  - Provides data integrity and transactional support.
-- **Notes**:
-  - Ensures reliable data persistence.
-  - Scalable and supports complex queries.
+Stores all persistent application data: plans, descriptions, blueprints, templates, users, configuration, and annotation records.
 
-#### **RabbitMQ**
+### Elasticsearch — Search Index
 
-- **Purpose**: Message broker facilitating communication between microservices.
-- **Features**:
-  - Supports asynchronous messaging.
-  - Enhances scalability and decouples services.
-- **Notes**:
-  - Critical for inter-service communication.
-  - Improves system resilience.
+Powers full-text search across plans and descriptions. The API keeps the index in sync on every create, update, and delete operation.
 
-#### **Elasticsearch**
+### File Transformers — Pluggable Export/Import
 
-- **Purpose**: Provides powerful search and indexing capabilities.
-- **Features**:
-  - Enables full-text search over various data fields.
-  - Real-time data indexing.
-- **Notes**:
-  - Enhances user experience with quick and efficient search functionality.
+Independent Spring Boot microservices, one per format. Each transformer implements a standard interface and registers with OpenCDMP at startup. PDF export is handled by the DOCX transformer — there is no separate PDF service. See [File Transformer Plugin](developers/plugins/file-transformers.md).
 
-#### **PDF Generator Service**
+### Deposit Services — Pluggable DOI Assignment
 
-- **Purpose**: Generates PDF documents from Plans.
-- **Features**:
-  - Converts Plans into professional PDF formats.
-  - Supports custom templates and styling.
-- **Notes**:
-  - Facilitates easy sharing and presentation of Plans.
+Independent Spring Boot microservices, one per repository. Each service authenticates with its target repository, uploads the plan files, and returns the minted DOI. See [Deposit Plugin](developers/plugins/deposit.md).
+
+### Keycloak — Authentication
+
+Manages user identities, roles, and access tokens. Both the Webapp (user login) and the API Service (token validation) integrate with Keycloak via OAuth2/OIDC.

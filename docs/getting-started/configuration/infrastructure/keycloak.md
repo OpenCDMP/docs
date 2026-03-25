@@ -1,9 +1,10 @@
 ---
-sidebar_position: 2
-description: A guide for the docker keycloak.env file.
+sidebar_position: 3
+title: Keycloak Environment Variables
+description: Reference for the keycloak.env Docker environment file
 ---
 
-# Keycloak
+# Keycloak Environment Variables
 
 # Configuring the `keycloak.env` File
 

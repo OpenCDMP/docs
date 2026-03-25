@@ -1,9 +1,10 @@
 ---
 sidebar_position: 1
-description: A guide for the platform installation process
+title: Keycloak Setup
+description: Step-by-step guide for configuring Keycloak for OpenCDMP
 ---
 
-# Keycloak
+# Keycloak Setup
 ### **Setting Up Keycloak**
 
 This guide provides step-by-step instructions to set up [Keycloak](https://www.keycloak.org/) for **OpenCDMP**. Keycloak is used for authentication and authorization within the OpenCDMP platform.
@@ -29,7 +30,7 @@ This guide provides step-by-step instructions to set up [Keycloak](https://www.k
 
 ## Step 2: Create OpenID Connect Clients
 
-Create the following five OpenID Connect clients:
+Create the following  OpenID Connect clients:
 
 - `api`
 - `annotation`
@@ -37,14 +38,17 @@ Create the following five OpenID Connect clients:
 - `plugins`
 - `webapp`
 - `swagger`
-
+<!-- kpi & accounting disabled -->
+<!-- - `kpi`
+- `accounting`
+- `accounting-webapp` -->
 :::note
 Client names and ids are configurable and are used as examples.
 :::
 
 ### General Client Settings
 
-For **`api`, `annotation`, `notification`, `plugins` clients**, set the following options:
+For **`api`, `annotation`, `notification`, `plugins` <!-- kpi & accounting disabled --> <!-- , `kpi`, `accounting` --> clients**, set the following options:
 
 - **Client Authentication**: **On**
 - **Direct Access Grants Enabled**: **On**
@@ -59,7 +63,7 @@ For **`swagger` client**, set the following options:
 - **Standard Flow Enabled**: **On**
 - **Implicit Flow Enabled**: **On**
 
-For the **`webapp` client**, set:
+For the **`webapp`<!-- accounting disabled --> <!--  and  `accounting-webapp`--> clients**, set:
 
 - **Client Authentication**: **Off**
 - **Direct Access Grants Enabled**: **Off**
@@ -166,7 +170,53 @@ For the **`webapp` client**, set:
 
 6. Click **Save**.
 
----
+<!-- kpi disabled -->
+<!-- 
+### Client: `kpi`
+
+1. Create a new client with **Client ID**: `kpi_web`.
+
+2. Apply the general client settings.
+
+3. In the **Roles** tab, create:
+
+   - **kpi-user**
+   - **kpi-admin**
+ -->
+
+<!-- accounting disabled -->
+<!-- ### Client: `accounting`
+
+1. Create a new client with **Client ID**: `accounting`.
+
+2. Apply the general client settings.
+
+--- -->
+
+<!-- accounting disabled -->
+<!-- ### Client: `accounting-webapp`
+
+1. Create a new client with **Client ID**: `accounting-webapp`.
+
+2. **Client Protocol**: **openid-connect**
+
+3. **Root URL**: `https://(APP_URL)/accounting`
+
+4. Click **Save**.
+
+5. In the **Settings** tab, set:
+
+   - **Client Authentication**: **Off**
+   - **Direct Access Grants Enabled**: **Off**
+   - **Service Accounts Enabled**: **Off**
+   - **Standard Flow Enabled**: **On**
+   - **Root URL**: `https://(APP_URL)/accounting`
+   - **Home URL**: `https://(APP_URL)/accounting/`
+   - **Valid Redirect URIs**: `https://(APP_URL)/*`
+   - **Web Origins**: `https://(APP_URL)`
+   - **Admin URL**: `https://(APP_URL)//accounting`
+
+6. Click **Save**. -->
 
 ## Step 3: Create Realm Roles
 
@@ -185,7 +235,7 @@ For the **`webapp` client**, set:
 
 ## Step 4: Create Client Scopes
 
-Create the following six client scopes:
+Create the following client scopes:
 
 - `api`
 - `annotation`
@@ -193,6 +243,9 @@ Create the following six client scopes:
 - `plugins`
 - `identity_provider`
 - `tenant_role`
+<!-- kpi & accounting disabled -->
+<!-- - `kpi`
+- `accounting` -->
 
 For each client scope:
 
@@ -220,9 +273,9 @@ For each client scope:
 
 ## Step 5: Configure Mappers for Client Scopes
 
-### Audience Mappers for `api`, `annotation`, `notification`, `plugins`
+### Audience Mappers for `api`, `annotation`, `notification`, `plugins` <!-- kpi & accounting disabled --> <!--, `kpi`, `accounting`-->
 
-For each of the client scopes `api`, `annotation`, `notification`, and `plugins`:
+For each of the client scopes `api`, `annotation`, `notification`, `plugins` <!-- kpi & accounting disabled --> <!-- `kpi` and `accounting` --> :
 
 1. Go to **Client Scopes** and select the client scope.
 
@@ -409,7 +462,7 @@ Under the `opencdmp` group, create the following subgroups:
 
    - Add **Admin**
 
-4. Repeat for clients `annotation` and `notification`:
+4. Repeat for clients `annotation`, `notification ` <!-- kpi disabled --><!-- `kpi` -->:
 
    - Add **Admin**
 
@@ -437,6 +490,18 @@ Under the `opencdmp` group, create the following subgroups:
 3. In **Client Roles**, select clients `api`, `annotation`, `notification`:
 
    - Add **User**
+
+<!-- kpi disabled -->
+<!-- #### Group: `tenant-role-admin`
+
+1. Select `tenant-role-admin` under `opencdmp`.
+
+2. Navigate to **Role Mappings**.
+
+3. In **Client Roles**, select client `kpi`:
+
+   - Add **Admin** -->
+
 
 ### Create Subgroups for Tenant Roles
 

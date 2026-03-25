@@ -4,7 +4,7 @@ description: Configuring the file transformer services
 ---
 
 # File Transformer Services
-These are the currently implemented [file transformers services](/docs/optional-services/file-transformers.md). Here you can view all available configuration options for each file transformer service.
+These are the currently implemented [file transformers services](/optional-services/file-transformers.md). Here you can view all available configuration options for each file transformer service.
 
 ## Docx File Transformer
 
@@ -77,8 +77,8 @@ These are the currently implemented [file transformers services](/docs/optional-
 
 ## See Also
 
-- [Main Backend Configuration](/docs/getting-started/configuration/backend/index.md) - Core backend service configuration
-- [File Transformer Service Authentication](/docs/getting-started/configuration/backend/index.md#file-transformer-service-authentication) - Backend authentication setup for file transformers
+- [Main Backend Configuration](/getting-started/configuration/backend/index.md) - Core backend service configuration
+- [File Transformer Service Authentication](/getting-started/configuration/backend/index.md#file-transformer-service-authentication) - Backend authentication setup for file transformers
 - [Keycloak Configuration](/getting-started/configuration/keycloak/) - Authentication setup
 
 ---

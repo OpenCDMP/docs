@@ -1,29 +1,48 @@
 ---
 sidebar_position: 1
-description: View details about the field types
+description: View details about the field types available in blueprints
 ---
 
 # Field Types
 
-import Tabs from '@theme/Tabs';
-import TabItem from '@theme/TabItem';
+Blueprint fields are organized into four categories.
 
-In general, there are three categories of fields that can be used.
+## System Fields
 
-- **System**: These are predefined fields that refer to system or specification information when filled by the end users. The available system fields are the following:
-  - **Title**: Refers to a title of an entity.
-  - **Description**: Refers to a description of an entity.
-  - **Language**: Refers to the language to be used. The languages being displayed to the end user are discussed [here](admin-guide/system-configuration/languages.md).
-  - **Contact**: Refers to contact information about who should be responsible for the entity.
-  - **Access**: Indicates if an entity is publicly available. The end user will have to select between `Public` or `Restricted`.
-  - **User**: Refers to users registered to the platform.
-- **External Reference**: These are fields that connect to a locally defined or an external source (an  external API in most cases). There is more information available in the [Reference Types](admin-guide/system-configuration/reference-types.md) section.
-- **Custom**: These are generic fields that can be added to provide any type of information. The available data types are the following:
-  - **Text**: a regular text box (one line)
-  - **Rich Text**: a rich text editor
-  - **Date**: date input
-  - **Number**: number input
-- **Upload**: A file as input. This field type requires extra configurations:
-  - **Max File Size**: It is required to limit the size of the files uploaded by the user.
-  - **File types**: You can force the upload of specific file types.
-  - **Other file types**: If the file type is not available in the dropdown, you must add your own by giving a name and the specific MIME type you want.
+Predefined fields that represent core plan metadata. Each system field type can only be added once per blueprint.
+
+| System Field | What It Captures |
+|---|---|
+| **Title** | The display name of the plan |
+| **Description** | A free-text summary of the plan |
+| **Language** | The language of the plan. Options come from the configured [Languages](/docs/admin-guide/system-configuration/languages.md) |
+| **Contact** | A responsible contact person for the plan |
+| **Access Rights** | Whether the plan is `Public` or `Restricted` |
+| **User** | A user registered on the platform |
+
+## Reference Type Fields
+
+Link a blueprint field to a [Reference Type](/docs/admin-guide/system-configuration/reference-types.md). Users search for and select values from the configured source (e.g., a grant from OpenAIRE, an organization from ROR).
+
+When adding a Reference Type field, you select which Reference Type it connects to.
+
+## Extra Fields
+
+Free-form fields for any additional plan-level metadata not covered by system or reference type fields.
+
+| Data Type | Description |
+|---|---|
+| **Text** | A single-line text input |
+| **Rich Text** | A formatted text editor (bold, italic, lists, links) |
+| **Date** | A date picker |
+| **Number** | A numeric input |
+
+## Upload Fields
+
+A file attachment at the plan level. Requires additional configuration:
+
+| Setting | Description |
+|---|---|
+| **Max File Size** | The maximum file size users can upload (required) |
+| **File Types** | Restrict uploads to specific file types by selecting from the available list |
+| **Other File Types** | If a required file type is not in the list, add it manually with a name and MIME type |

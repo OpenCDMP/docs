@@ -10,7 +10,7 @@ This page allows administrators to define categories for description templates, 
 ## What Are Template Types
 
 :::info
-A **Template Type** is a classification category for [Description Templates](/docs/admin-guide/content-management/templates/index.md). When creating or editing a description template, administrators assign it a type. This type helps users identify the purpose of the template and allows filtering in the template selection interface.
+A **Template Type** is a classification category for [Description Templates](/admin-guide/content-management/templates/index.md). When creating or editing a description template, administrators assign it a type. This type helps users identify the purpose of the template and allows filtering in the template selection interface.
 :::
 
 ## Why Use Template Types
@@ -66,9 +66,9 @@ You can control how many records are being displayed at any time, by adjusting t
 There is a filtering option available for description types.
 
 - **Is Active**: By toggling this control you can view only the active or only the disabled types.<br/>*By default, this option is set to true.*
-- **Status**: Filter types by their status. The status can either be `Draft` or `Finalized`.<br/>*By default, no status is selected  (more details in [statuses](/docs/admin-guide/content-management/template-types.md#statuses) section).*
+- **Status**: Filter types by their status. The status can either be `Draft` or `Finalized`.<br/>*By default, no status is selected  (more details in [statuses](/admin-guide/content-management/templates/template-types.md#statuses) section).*
 
-In order for the filters to apply, you have to click the `Apply filters` button. 
+In order for the filters to apply, you have to click the `Apply filters` button.
 
 You can also clear any filters already applied, by pressing the `clear all filters` option, located at the top of the popup.
 
@@ -79,7 +79,7 @@ When you try to add new types or edit existing ones, the **description template 
 - **Name**: The display name of the type.
 - **Code**: The unique identification code which is used internally during the imports and exports.
 
-## Statuses 
+## Statuses
 
 The are two available statuses: `Draft`, `Finalized`. If you want to save it as a `Draft`, press the `Save` button. Otherwise, press the `Finalize` button.
 

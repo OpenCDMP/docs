@@ -16,7 +16,7 @@ The use of the KPI service is optional and can be used as an add-on feature for 
 :::
 
 ## Usages
-In **OpenCDMP** the KPI service can be used to to generate graphs for core entities such as [plans](user-guide/plans/index.md), [descriptions](user-guide/descriptions/index.md), [references](user-guide/references.md) and users.
+In **OpenCDMP** the KPI service can be used to to generate graphs for core entities such as [plans](user-guide/plans/index.md), [plan blueprints](user-guide/blueprints/), [descriptions](user-guide/descriptions/index.md), [description templates](user-guide/templates/), [references](user-guide/references.md) and users.
 
 :::info
 Details about KPI indicator creation can be found [here](admin-guide/maintenance.md#indicator-events)

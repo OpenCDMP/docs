@@ -12,7 +12,7 @@ You can export the structure of a plan in the following formats:
 - **XML**
 
 :::info
-- `JSON` file is produced according to [RDA](https://github.com/RDA-DMP-Common/RDA-DMP-Common-Standard) or [RAiD](https://metadata.raid.org/en/latest/) specifications
+- `JSON` file is produced according to [RDA](https://github.com/RDA-DMP-Common/RDA-DMP-Common-Standard) or [RAiD](https://metadata.raid.org/en/v1.6.3/core/core.html#contents) specifications
 - File formats `PDF`, `DOCX`, `JSON` exports are done by [file transformer services](optional-services/file-transformers.md)
 - You can use the export feature if current plan status has this action. More details can be found [here](admin-guide/system-configuration/plan-statuses.md)
 :::
@@ -26,3 +26,8 @@ You can export the structure of a plan in the following formats:
 - Export is also available for the [Public Plans](user-guide/plans/my-plans.md#public-plans)
 
 :::
+
+## See Also
+
+- [Deposit a Plan](user-guide/plans/deposit-a-plan.md) — publish to a repository and receive a permanent DOI
+- [File Transformer Services](optional-services/file-transformers.md) — learn about supported formats and how to add custom transformers

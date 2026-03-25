@@ -10,7 +10,7 @@ const config: Config = {
 
 
 	onBrokenLinks: 'throw',
-	onBrokenMarkdownLinks: 'warn',
+	onBrokenAnchors: 'throw',
 	favicon: 'img/favicon.ico',
 	organizationName: 'OpenCDMP', // Usually your GitHub org/user name.
 	projectName: 'docs', // Usually your repo name.
@@ -53,10 +53,25 @@ const config: Config = {
 		],
 	],
 
-	themes: ['@docusaurus/theme-mermaid'],
+	themes: [
+		'@docusaurus/theme-mermaid',
+		[
+			'@easyops-cn/docusaurus-search-local',
+			{
+				hashed: true,
+				language: ['en'],
+				highlightSearchTermsOnTargetPage: true,
+				explicitSearchResultPath: true,
+				forceIgnoreNoIndex: true,
+			},
+		],
+	],
 
 	markdown: {
 		mermaid: true,
+		hooks: {
+			onBrokenMarkdownLinks: 'throw',
+		},
 	},
 
 	themeConfig: {

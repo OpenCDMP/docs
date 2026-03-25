@@ -35,7 +35,7 @@ Always back up before upgrading. This is your safety net for rollback.
 Stop all OpenCDMP services:
 
 ```bash
-docker-compose down
+docker compose down
 ```
 
 ### Step 2: Update Environment Variables and Docker Tags
@@ -47,7 +47,7 @@ Update the `.env` file in your [docker-deployment](https://github.com/OpenCDMP/d
 
 
 :::tip
-The `.env` file contains all version tags and configuration variables used by the [docker-compose.yml](https://github.com/OpenCDMP/docker-deployment/blob/main/docker-compose.yml).
+The `.env` file contains all version tags and configuration variables used by the [docker compose.yml](https://github.com/OpenCDMP/docker-deployment/blob/main/docker compose.yml).
 :::
 
 ### Step 3: Update Configuration Files
@@ -142,13 +142,13 @@ If a migration fails:
 Start all services:
 
 ```bash
-docker-compose up -d
+docker compose up -d
 ```
 
 Monitor logs during startup:
 
 ```bash
-docker-compose logs -f
+docker compose logs -f
 ```
 
 ### Step 6: Verify Upgrade
@@ -169,12 +169,12 @@ Test critical functionality:
 
 If the upgrade fails or causes issues:
 
-1. **Stop services**: `docker-compose down`
+1. **Stop services**: `docker compose down`
 2. **Restore database** from backup
 3. **Restore files** from backup
 4. **Restore configuration files** from backup
-5. **Revert to previous Docker image tags** in `docker-compose.yml`
-6. **Start services**: `docker-compose up -d`
+5. **Revert to previous Docker image tags** in `docker compose.yml`
+6. **Start services**: `docker compose up -d`
 7. **Verify rollback** - test basic functionality
 
 ---
@@ -257,7 +257,7 @@ If the upgrade fails or causes issues:
 
 - [Deployment Guide](index.md) - Initial deployment instructions
 - [Configuration Guide](../configuration/index.md) - All configuration options
-- [Troubleshooting](/docs/troubleshooting.md) - Common issues and solutions
+- [Troubleshooting](/troubleshooting.md) - Common issues and solutions
 
 ---
 

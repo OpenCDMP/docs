@@ -16,23 +16,23 @@ There are 2 user input variables in order to customize a theme: **primary color*
 CSS overrides are meant to replace certain system variables that are set in place when a material theme is applied.
 
 ### **Color values** 
-**Color values** can be set using the material ` --md-sys-<token> ` naming convention.
+**Color values** can be set using the material ` --mat-sys-<token> ` naming convention.
 Some commonly used color tokens are the following:
 
 | Name                             | Description                                                     |
 | -------------------------------- | -------------------------------------------------------------------------------- |
-| --md-sys-surface      | the background color on most surfaces throughout the app, like cards and dialogs.|
-| --md-sys-on-surface   | used for icons, text, and other visual elements placed on a surface background.|
-| --md-sys-background   | background color of the main area, behind any other element that the user interacts with.|
-| --md-sys-on-background  | used for icons, text, and other visual elements placed on the background.|
-| --md-sys-primary      | The most common color used by components to participate in the application theme. Also the color associated with [**Plans**](user-guide/plans/index.md). |
-| --md-sys-on-primary   | used for icons, text, and other visual elements placed on a primary background           |
-| --md-sys-tertiary      | The accent color used by components to participate in the application theme. Also the color associated with [**Descriptions**](user-guide/descriptions/index.md). |
-| --md-sys-on-tertiary   | used for icons, text, and other visual elements placed on a tertiary background.|
+| --mat-sys-surface      | the background color on most surfaces throughout the app, like cards and dialogs.|
+| --mat-sys-on-surface   | used for icons, text, and other visual elements placed on a surface background.|
+| --mat-sys-background   | background color of the main area, behind any other element that the user interacts with.|
+| --mat-sys-on-background  | used for icons, text, and other visual elements placed on the background.|
+| --mat-sys-primary      | The most common color used by components to participate in the application theme. Also the color associated with [**Plans**](user-guide/plans/index.md). |
+| --mat-sys-on-primary   | used for icons, text, and other visual elements placed on a primary background           |
+| --mat-sys-tertiary      | The accent color used by components to participate in the application theme. Also the color associated with [**Descriptions**](user-guide/descriptions/index.md). |
+| --mat-sys-on-tertiary   | used for icons, text, and other visual elements placed on a tertiary background.|
 
 
 ### **Typography values** 
-Similarly to color, **typography values** can be set using the ` --md-sys-<scale>-<size>-<property> ` naming convention.
+Similarly to color, **typography values** can be set using the ` --mat-sys-<scale>-<size>-<property> ` naming convention.
 
 | Name          | Available values                                                             |
 | ------------- | ---------------------------------------------------------------------------- |
@@ -43,13 +43,13 @@ Similarly to color, **typography values** can be set using the ` --md-sys-<scale
 Some examples of typography size value uses in the application: 
 | Name                           | Common uses                                                              |
 | ------------------------------ | ----------------------------------------------------------------------   |
-| --sys-body-large-size          | Editor input fields                                                      |
-| --sys-body-medium-size         | The base text size for the application                                   |
-| --sys-body-small-size          | Hints, tooltips, sidebar menu footer                                     |
-| --sys-label-large-size         | Buttons                                                                  |
-| --sys-headline-large-size      | Dialog and other main titles                                             |
-| --sys-headline-medium-size     | Secondary titles                                                         |
-| --sys-headline-small-size      | Sidebar menu items, section titles                                       |
+| --mat-sys-body-large-size          | Editor input fields                                                      |
+| --mat-sys-body-medium-size         | The base text size for the application                                   |
+| --mat-sys-body-small-size          | Hints, tooltips, sidebar menu footer                                     |
+| --mat-sys-label-large-size         | Buttons                                                                  |
+| --mat-sys-headline-large-size      | Dialog and other main titles                                             |
+| --mat-sys-headline-medium-size     | Secondary titles                                                         |
+| --mat-sys-headline-small-size      | Sidebar menu items, section titles                                       |
 
 
 For more information, take a look at the list of [**color tokens**](https://github.com/material-components/material-web/blob/main/tokens/_md-sys-color.scss) and [**typography tokens**](https://github.com/material-components/material-web/blob/main/tokens/_md-sys-typescale.scss).

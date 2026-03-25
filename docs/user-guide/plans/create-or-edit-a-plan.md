@@ -42,3 +42,20 @@ To change plan `status` you must save or discard all editor changes first.
 There is a progression bar percentage that counts the completed required fields. To finalize a plan you must fill all the required fields.
 
 :::
+
+### Working with References in a Plan
+
+When editing a plan, some fields require selecting values from predefined lists instead of typing free text.  
+These lists are called **[References](user-guide/references.md)**.
+
+If the required value doesn’t exist in the available options, you can **add it manually**.
+Learn more about how to add a manual reference in the [Adding a Reference Manually](user-guide/references.md#adding-a-reference-manually) section.
+
+---
+
+## Next Steps
+
+- [Plan Overview](user-guide/plans/plan-overview.md) — view all plan details and take actions such as status changes, export, deposit, and evaluation
+- [Invite Collaborators](user-guide/plans/invite-collaborators.md) — share your plan and assign sections to team members
+- [Export a Plan](user-guide/plans/exports.md) — download your plan as PDF, DOCX, JSON, or XML
+
