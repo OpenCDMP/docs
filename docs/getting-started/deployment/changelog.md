@@ -24,54 +24,42 @@ The Notification Service and Annotation Service are closed-source components dis
 |---|---|
 | API Service | 1.3.0 |
 | Webapp | 1.3.0 |
-| File Transformer — Docx | 1.3.3 |
-| File Transformer — RDA maDMP | 1.3.2 |
-| File Transformer — RAiD | 1.3.1 *(first release)* |
-| Deposit Service — Zenodo | 1.3.2 |
-| Deposit Service — DSpace | 1.3.2 *(first release)* |
-| Deposit Service — CKAN | 1.3.1 *(first release)* |
-| Deposit Service — Dataverse | 1.3.1 *(first release)* |
-| Deposit Service — Fedora | 1.3.1 *(first release)* |
-| Evaluator — RDA maDMP | 1.3.2 |
-| Evaluator — OSTrails | *(first release)* |
-| Evaluator — OpenAIRE FAIR | *(first release)* |
+| File Transformer — Docx | 1.3.0 |
+| File Transformer — RDA maDMP | 1.3.0 |
+| File Transformer — RAiD | 1.3.0 |
+| Deposit Service — Zenodo | 1.3.0 |
+| Deposit Service — DSpace | 1.3.0 |
+| Deposit Service — CKAN | 1.3.0 |
+| Deposit Service — Dataverse | 1.3.0 |
+| Deposit Service — Fedora | 1.3.0 |
+| Evaluator — RDA maDMP | 1.3.0 |
+| Evaluator — OSTrails DMP Evaluation Service | 1.3.0 |
 
 ### API Service & Webapp
 
 #### New Features
 - **Plan Blueprint Types**: Administrators can categorize blueprints with types, enabling filtering and better organization across the blueprint library
-- **Real-time collaboration**: Active users shown live in the plan editor and plan overview; navigate-to-user-position in the editor; presence updates over WebSocket
-- **Plan update requests**: Users can request changes to a finalized plan; plan owner receives a notification and can accept or reject the request
+- **Real-time collaboration**: Active users shown live in the plan editor and plan overview; navigate to another user's position in the editor
+- **Plan update requests**: Users can request changes to a finalized plan; the plan owner receives a notification and can accept or reject the request
 - **New plan role notifications**: Email and in-app notifications sent when a user's plan role is added, changed, or removed
 - **OSTrails evaluator**: Full configuration and UI support for the OSTrails DMP evaluation service
 - **OpenAIRE FAIR evaluator**: Full configuration and UI support for the OpenAIRE FAIR assessment service
-- **Benchmark support**: Evaluators can now return benchmark comparisons alongside rank results; benchmark IDs are configurable per evaluator
-- **RDA maDMP queue integration**: Plans are registered and tracked via maDMP queue events; dedicated database tables for maDMP data
+- **Evaluator benchmarks**: Evaluators can return benchmark comparisons alongside rank results; benchmark IDs are configurable per evaluator
 - **Tenant label translation**: Tenant labels are now translatable per language
-- **Enriched semantics**: HealLink semantic field definitions added; semantics expanded to cover RDA DMP Common Standard v1.2
-- **Reference type enhancements**: Semantics support added to the reference type editor; required field option for reference type fields; popup to view reference field details; reference type fields included in export and import
-- **Public page improvements**: Plan authors displayed on public pages for plan members; description preview shown on public plan pages
-- **Swagger UI**: Endpoint groups, operation ordering, schema definitions for blueprints and description templates, public plan and description endpoints; new environment variables (`SWAGGER_ENABLED`, `SWAGGER_AUTH_REDIRECT_URL`, `SWAGGER_SERVER_URL`)
+- **Enriched semantics**: HealLink and RDA DMP Common Standard v1.2 semantic field definitions added
+- **Reference type enhancements**: Semantics support in the reference type editor; required field option; popup to view field details; fields included in export and import
+- **Public page improvements**: Plan authors shown on public pages; description preview added to public plan pages
+- **Swagger UI**: Extended API documentation with public plan and description endpoints; configurable via `SWAGGER_ENABLED`, `SWAGGER_AUTH_REDIRECT_URL`, and `SWAGGER_SERVER_URL`
 - **Supporting zip file**: Plans can now include a supporting zip archive of attachments
 - **Cookie consent and analytics**: Matomo analytics integration with per-user consent controls
-- **Deployment health checks**: Docker health check configuration added for all services
 
 #### Improvements
-- **Spring Boot 4.0.0** upgrade
-- **Angular 21** upgrade; Material v20 UI and Keycloak v19 compatibility
-- Plan listing: DOIs column; references use reference type config for display
+- **Spring Boot 4.0.0** and **Angular 21** upgrades; Material v20 UI and Keycloak v19 compatibility
+- Plan listing: DOIs column; references displayed using reference type configuration
 - Plan overview: status colour, reference labels, language name, and date format improvements; notification when a newer version is available
-- Blueprint editor: finalize button hidden when in new-version draft state
-- `canEditDescriptionTemplates` enforcement: backend validation added to blueprint restriction
-- Tenant filter applied to plan and description queries
-- Email validation when linking accounts prevents duplicates
-- Return URL preserved when redirecting to login
-- Max in-memory size configuration for external fetcher HTTP client
+- Blueprint editor: finalize button hidden when blueprint is in a new-version draft state
 
 #### Fixes
-- Plan blueprint import with nullable type field
-- Auto-complete container click handling
-- Page not found routing
 - DOI messages and deposit dropdown display
 - Organization display in user profile
 
@@ -79,16 +67,13 @@ The Notification Service and Annotation Service are closed-source components dis
 
 - Reference type field information now rendered in output documents
 - Font size in reference rows configurable via the DOCX template rather than hardcoded
-- Spring Boot 4.0.0 upgrade; health check endpoint added
 
 ### File Transformer — RDA maDMP
 
 - **RDA DMP Common Standard v1.2** support
 - Full import coverage for project objects, contributors, contacts, and funding/grant identifiers
-- Spring Boot 4.0.0 upgrade; health check endpoint added
 
-### File Transformer — RAiD *(first release)*
-
+### File Transformer — RAiD
 - JSON export following the RAiD specification (v1.6–1.6.3)
 - Identifier, access, and date semantics supported for description template export
 
@@ -96,37 +81,29 @@ The Notification Service and Annotation Service are closed-source components dis
 
 - Reference type semantics for researchers and licenses mapped to Zenodo metadata
 - New version deposit: previous DOI stored as parent record
-- Spring Boot 4.0.0 upgrade; health check endpoint added
 
-### Deposit Service — DSpace *(first release)*
-
+### Deposit Service — DSpace
 - DSpace 8.x support with username/password authentication
 
-### Deposit Service — CKAN *(first release)*
-
+### Deposit Service — CKAN
 - CKAN 2.11.4 support with access token authentication
 
-### Deposit Service — Dataverse *(first release)*
-
+### Deposit Service — Dataverse
 - Dataverse 6.9 support with access token authentication
 
-### Deposit Service — Fedora *(first release)*
-
+### Deposit Service — Fedora
 - Fedora 6.x support with username/password authentication
 
 ### Evaluator — RDA maDMP
 
 - **RDA DMP Common Standard v1.2** schema validation
 - Benchmark configuration and result fields
-- Spring Boot 4.0.0 upgrade; health check endpoint added
 
-### Evaluator — OSTrails *(first release)*
-
+### Evaluator — OSTrails
 - Evaluates whether a plan or description aligns with the OSTrails metadata and policy framework
 - Assesses completeness, openness, and reproducibility against OSTrails guidelines
 
-### Evaluator — OpenAIRE FAIR *(first release)*
-
+### Evaluator — OpenAIRE FAIR
 - Assesses whether a plan meets FAIR principles (Findable, Accessible, Interoperable, Reusable)
 - Provides structured feedback for improving FAIR compliance
 
@@ -161,44 +138,30 @@ The Notification Service and Annotation Service are closed-source components dis
 - **Public plan pages**: Public-facing plan and description overview pages for anonymous users, including access type visibility controls
 - **Plan author ordering**: Authors can be given an ordinal position within a plan
 - **Reference type semantic fields**: Semantic identifiers added to reference type fields; included in XML export and import
-- **Blueprint description template restrictions**: `canEditDescriptionTemplates` flag controls whether plan users may edit attached description templates
+- **Blueprint description template restrictions**: Controls whether plan users may edit attached description templates
 - **New plan user roles**: Data Privacy Officer and additional collaboration roles added
 - **Description field set table view**: Multiplicity inputs can be displayed in a table layout
 - **Annotation indication in table of contents**: Annotation counts shown at section and description level
-- **Deployment health checks**: Docker health check configuration added for all services
-- **Monitoring endpoint**: Metrics/monitoring endpoint added
 
 #### Improvements
-- Plugin configuration refactored to support dynamic file transformer selection
-- Plan listing: DOIs column added; references displayed using reference type config
-- Plan overview: status colour, reference labels, language name, and date format improvements; message shown when a newer plan version is available
-- Description template autocomplete fix during plan import from JSON
+- Plan listing: DOIs column added; references displayed using reference type configuration
+- Plan overview: status colour, reference labels, language name, and date format improvements; notification when a newer plan version is available
 - Elasticsearch TLS certificate configuration support
-- Spring Boot 3.4.x / 3.5.x upgrades
 
 #### Fixes
-- `disableSSLCertificateValidation` option added to external fetcher HTTP client
-- Description field value saving when field type is an internal plan or description reference
-- Common model builder null pointer fixes
+- Description field value saving for plan and description reference field types
 
 ### File Transformer — Docx
 
-- **Custom plan and description DOCX templates**: Dynamic replacement of template codes (`{OPENCDMP.PLAN.*}`, `{OPENCDMP.DESCRIPTION.*}`, `{OPENCDMP.PLAN-REFERENCE.*}`, `{OPENCDMP.DESCRIPTION-REFERENCE.*}`)
-- **Plan and description reference codes**: Reference type code substitution in templates (e.g., `{OPENCDMP.PLAN-REFERENCE.GRANTS}`)
-- Description section code: `{OPENCDMP.DESCRIPTION.SECTION}`
-- Header and footer options
+- **Custom DOCX templates**: Dynamic replacement of template codes (`{OPENCDMP.PLAN.*}`, `{OPENCDMP.DESCRIPTION.*}`, `{OPENCDMP.PLAN-REFERENCE.*}`, `{OPENCDMP.DESCRIPTION-REFERENCE.*}`)
+- Reference type code substitution in templates (e.g., `{OPENCDMP.PLAN-REFERENCE.GRANTS}`)
+- Description section code, header and footer options
 - Upload field (file attachment) support in plan and description export
-- Language value resolved from language configuration file
-- Suppressed HTML paragraph styles within table cells
-- Monitoring endpoint added
 
 ### File Transformer — RDA maDMP
 
 - Full import support for RDA DMP project objects, contributor semantics, and funding/grant identifiers
 - DMP contacts semantics applied on import
-- Import variants configurable via environment
-- Log level set to `WARN` for non-critical output
-- Monitoring endpoint added
 
 ### Deposit Service — Zenodo
 
@@ -206,18 +169,12 @@ The Notification Service and Annotation Service are closed-source components dis
 - **Software and conference semantics**: Additional deposit metadata mapped from semantic fields
 - **Custom fields and additional titles**: Extended metadata support for Zenodo records
 - Funding and grant information populated from reference semantics
-- Access rights and custom license support
-- Zenodo relator types supported
+- Access rights, custom license, and relator type support
 - New version deposit: previous DOI stored as parent record
-- Author/contributor field handling improvements
-- InvenioRDM v12 compatibility
-- Monitoring endpoint added
 
 ### Evaluator — RDA maDMP
 
 - **Benchmark support**: Evaluator now returns benchmark data alongside rank results; benchmark IDs configurable
-- User configuration fields added
-- Monitoring endpoint added
 
 ---
 
@@ -246,21 +203,16 @@ The Notification Service and Annotation Service are closed-source components dis
 ### File Transformer — Docx
 
 - **Dynamic template code replacement**: Plan and description codes (`{OPENCDMP.PLAN.*}`, `{OPENCDMP.DESCRIPTION.*}`) replaced at export time; footer reference type codes supported
-- Description section code added
-- Header options
+- Description section code, header options
 - Language lookup from configuration file
-- Docker workflow and GitHub container registry publishing
 
 ### File Transformer — RDA maDMP
 
-- Logging path configuration
-- Spring Boot 3.4.1 upgrade
 - RDA project date format fix
 
 ### Deposit Service — Zenodo
 
-- Logging path configuration
-- Spring Boot 3.4.1 upgrade
+- Minor maintenance updates
 
 ---
 
@@ -293,9 +245,6 @@ The Notification Service and Annotation Service are closed-source components dis
 - Role-based access control (Viewer, Contributor, Reviewer) at plan and section level
 - Annotation and review system with comment statuses
 - Email and in-app notifications
-- Elasticsearch-powered search and indexing
-- RabbitMQ message broker integration
-- Docker Compose deployment
 
 ### File Transformer — Docx
 
