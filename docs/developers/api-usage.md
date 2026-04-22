@@ -182,7 +182,7 @@ curl -X POST \
   -H 'Authorization: Bearer <token>'
 ```
 
-The `status-id` must be a valid plan status that is reachable from the plan's current status via the configured [Plan Workflow](/docs/admin-guide/system-configuration/plan-workflow.md).
+The `status-id` must be a valid plan status that is reachable from the plan's current status via the configured [Plan Workflow](/docs/administering/system-configuration/plan-workflow.md).
 
 ---
 
@@ -251,4 +251,4 @@ The API does not enforce rate limiting by default. If you are running batch oper
 
 - [Integration Guide](/docs/developers/integration.md) — How to obtain OAuth2 tokens
 - [Swagger UI](/docs/developers/swagger.md) — Full interactive API reference
-- [Plan Workflow](/docs/admin-guide/system-configuration/plan-workflow.md) — Understanding status transitions
+- [Plan Workflow](/docs/administering/system-configuration/plan-workflow.md) — Understanding status transitions

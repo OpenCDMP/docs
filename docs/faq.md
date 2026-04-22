@@ -35,7 +35,7 @@ Yes. Deposit services are optional. You can create, edit, export, and evaluate p
 
 ### Can I have multiple versions of a plan?
 
-Yes. Once a plan is finalized, you can create a **New Version** from the plan overview. The new version starts as a draft copy of the finalized plan and is tracked separately. All versions are accessible from the plan listing. See [Versions](/docs/user-guide/plans/versions.md).
+Yes. Once a plan is finalized, you can create a **New Version** from the plan overview. The new version starts as a draft copy of the finalized plan and is tracked separately. All versions are accessible from the plan listing. See [Versions](/docs/using/plans/versions.md).
 
 ---
 
@@ -49,13 +49,13 @@ Finalized plans and descriptions are locked to preserve the integrity of the pub
 
 ### How do I invite collaborators to my plan?
 
-From the Plan Overview page, click **Invite** in the Plan Authors panel. Enter the collaborator's email address and assign their role (Contributor or Viewer). Section-level access can also be assigned to restrict a collaborator to specific parts of the plan. See [Invite Collaborators](/docs/user-guide/plans/invite-collaborators.md).
+From the Plan Overview page, click **Invite** in the Plan Authors panel. Enter the collaborator's email address and assign their role (Contributor or Viewer). Section-level access can also be assigned to restrict a collaborator to specific parts of the plan. See [Invite Collaborators](/docs/using/plans/invite-collaborators.md).
 
 ---
 
 ### How do I add a value that is not in the reference list?
 
-If a reference field does not contain the value you need, you can add it manually. Click the **Add manually** option in the reference picker, fill in the required fields (reference ID, label, and any type-specific fields), and save. See [Adding a Reference Manually](/docs/user-guide/references.md#adding-a-reference-manually).
+If a reference field does not contain the value you need, you can add it manually. Click the **Add manually** option in the reference picker, fill in the required fields (reference ID, label, and any type-specific fields), and save. See [Adding a Reference Manually](/docs/using/references.md#adding-a-reference-manually).
 
 ---
 
@@ -71,13 +71,13 @@ If a reference field does not contain the value you need, you can add it manuall
 - XML — OpenCDMP native format (simplest path, no mapping required)
 - JSON — RDA maDMP or RAiD format (requires template and section mapping)
 
-Available formats depend on which [File Transformer Services](/docs/optional-services/file-transformers.md) your administrator has configured.
+Available formats depend on which [File Transformer Services](/docs/optional-services/file-transformers/index.md) your administrator has configured.
 
 ---
 
 ### Can I import an existing DMP from another tool?
 
-Yes, if your DMP can be exported in RDA maDMP JSON or XML format. During JSON import, you will be asked to select a blueprint and map each description in the file to a description template and section. See [Plan Imports](/docs/user-guide/plans/imports.md).
+Yes, if your DMP can be exported in RDA maDMP JSON or XML format. During JSON import, you will be asked to select a blueprint and map each description in the file to a description template and section. See [Plan Imports](/docs/using/plans/imports.md).
 
 ---
 
@@ -85,7 +85,7 @@ Yes, if your DMP can be exported in RDA maDMP JSON or XML format. During JSON im
 
 ### What is a DOI and how do I get one?
 
-A **DOI** (Digital Object Identifier) is a permanent, citable identifier assigned to a published record. In OpenCDMP, a DOI is assigned when you **deposit** a finalized plan to an external repository such as Zenodo or Dataverse. After a successful deposit, the DOI appears on the Plan Overview page. See [Deposit a Plan](/docs/user-guide/plans/deposit-a-plan.md).
+A **DOI** (Digital Object Identifier) is a permanent, citable identifier assigned to a published record. In OpenCDMP, a DOI is assigned when you **deposit** a finalized plan to an external repository such as Zenodo or Dataverse. After a successful deposit, the DOI appears on the Plan Overview page. See [Deposit a Plan](/docs/using/plans/deposit-a-plan.md).
 
 ---
 
@@ -95,7 +95,7 @@ It depends on how the deposit service is configured by your administrator:
 
 - If the service uses **system-level credentials** (PluginDefault), no personal login is required.
 - If the service supports **OAuth2 login**, you will be redirected to the repository to authorize the connection.
-- If the service uses **profile credentials**, you need to save your personal access token in [Profile Settings](/docs/user-guide/profile-settings.md) before depositing.
+- If the service uses **profile credentials**, you need to save your personal access token in [Profile Settings](/docs/using/profile-settings.md) before depositing.
 
 ---
 
@@ -109,7 +109,7 @@ It depends on how the deposit service is configured by your administrator:
 | Assess alignment with open science and OSTrails framework | **Evaluator OSTrails** |
 | Check FAIR principles (after deposit to Zenodo) | **Evaluator OpenAIRE FAIR** |
 
-Your administrator may have configured additional custom evaluators. See [Evaluators](/docs/user-guide/plans/evaluators.md).
+Your administrator may have configured additional custom evaluators. See [Evaluators](/docs/using/plans/evaluators.md).
 
 ---
 
@@ -129,7 +129,7 @@ Semantics are optional string tags assigned to blueprint or description template
 - **Prefilling sources** — to identify which fields to populate with fetched data
 - **Evaluators** — to locate specific fields without relying on template IDs
 
-If you use any of the built-in export formats or prefilling, you should assign semantics using the suggested values. If you build custom plugins, you can define your own semantic strings. See [Semantics](/docs/admin-guide/content-management/blueprints/semantics.md).
+If you use any of the built-in export formats or prefilling, you should assign semantics using the suggested values. If you build custom plugins, you can define your own semantic strings. See [Semantics](/docs/administering/content-management/blueprints/semantics.md).
 
 ---
 
@@ -139,7 +139,7 @@ A **status** is a named state displayed to users (e.g., "Under Review", "Approve
 
 The **internal status** is a fixed platform concept — either **Draft** or **Finalized** (for plans; descriptions also have **Canceled**) — assigned to each status. It controls whether editing is allowed: Draft statuses allow editing, Finalized statuses lock the plan or description.
 
-This separation lets administrators define meaningful workflow names while the platform enforces the correct editing behaviour. See [Plan Statuses](/docs/admin-guide/system-configuration/plan-statuses.md).
+This separation lets administrators define meaningful workflow names while the platform enforces the correct editing behaviour. See [Plan Statuses](/docs/administering/system-configuration/plan-statuses.md).
 
 ---
 

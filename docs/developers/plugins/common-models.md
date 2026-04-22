@@ -209,7 +209,7 @@ The `DefinitionModel` contains `PageModel` objects. Each page has `SectionModel`
 
 Each `FieldModel` in the template contains:
 - `id` — unique identifier
-- `semantics` — semantic tags used for prefilling and interoperability
+- `semantics` — semantic tags used for prefilling and interoperability. Plugins inspect `semantics` to locate fields by meaning rather than by id, which is how the built-in [file transformers](/docs/optional-services/file-transformers/index.md) and [deposit services](/docs/optional-services/deposit-services/index.md) map plan and description data to their output formats. Each plugin's per-semantic mapping is documented on its reference page.
 - `validations` — e.g., `Required`, `Url`
 - `data` — a `BaseFieldDataModel` subclass describing the field type (free text, date, reference, boolean, etc.)
 
@@ -278,7 +278,7 @@ public class VisibilityStateModel {
 
 ## ReferenceModel
 
-`ReferenceModel` represents a linked external record — a grant, organization, researcher, publication, or any other [reference type](/docs/admin-guide/system-configuration/reference-types.md).
+`ReferenceModel` represents a linked external record — a grant, organization, researcher, publication, or any other [reference type](/docs/administering/system-configuration/reference-types.md).
 
 ```java
 public class ReferenceModel {
@@ -317,7 +317,7 @@ public class ConfigurationField {
 
 **`configurationFields`** are filled in by the administrator when registering the plugin (e.g., an API key or a template file).
 
-**`userConfigurationFields`** are filled in by individual users via their [profile settings](/docs/user-guide/profile-settings.md) (e.g., a personal access token for a deposit repository).
+**`userConfigurationFields`** are filled in by individual users via their [profile settings](/docs/using/profile-settings.md) (e.g., a personal access token for a deposit repository).
 
 ### PluginModel
 

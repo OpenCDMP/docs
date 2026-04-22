@@ -58,7 +58,7 @@ Application uses target metrics to define the above information to the accountin
 - **`import_description_template_xml_execution_count`**
 
 :::info
-Details about metrics initialization can be found [here](admin-guide/maintenance.md#accounting-events)
+Details about metrics initialization can be found [here](administering/maintenance.md#accounting-events)
 :::
 
 :::warning  
@@ -76,20 +76,20 @@ Some metrics use dynamic placeholders that are replaced at runtime based on cont
      where `<evaluator_id>` is the ID of an [evaluation service](optional-services/evaluator-services.md)
     
   - `deposit_execution_count_for_<deposit_id>`  
-      where `<deposit_id>` refers to a [deposit service](optional-services/deposit-services.md). 
+      where `<deposit_id>` refers to a [deposit service](optional-services/deposit-services/index.md). 
 
   - `file_transformer_import_plan_execution_count_for_<file_transformer_id>`  
-     where `<file_transformer_id>` is the ID of the [file transformer](optional-services/file-transformers.md) service used  
+     where `<file_transformer_id>` is the ID of the [file transformer](optional-services/file-transformers/index.md) service used  
 
 These dynamic parts are essential for tracking usage per specific configuration or service integration in the system.  
 :::
 
 ### Usage Limits
-Also accounting service can be used to check if an entity has exceeded its [usage limit](admin-guide/usage-limits.md). So, every time before an entity is created, the number of the entity present in the application is calculated by accounting service . If the `value` declared in the usage limit for this entity has been exceeded, then the creation of this entity has not completed.
+Also accounting service can be used to check if an entity has exceeded its [usage limit](administering/usage-limits.md). So, every time before an entity is created, the number of the entity present in the application is calculated by accounting service . If the `value` declared in the usage limit for this entity has been exceeded, then the creation of this entity has not completed.
 
 :::info
 
-The way we configure a new usage limit is described in detail in the [usage limit administration](admin-guide/usage-limits.md) section of the docs.
+The way we configure a new usage limit is described in detail in the [usage limit administration](administering/usage-limits.md) section of the docs.
 
 :::
 

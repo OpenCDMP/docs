@@ -30,13 +30,13 @@ The following events can generate email notifications:
 | Credential removal confirmation | A request to unlink an email requires your email confirmation |
 
 :::info
-Which of these events generate email notifications depends on the notification templates configured by your administrator. Users can control their email preferences in [Profile Settings](/docs/user-guide/profile-settings.md).
+Which of these events generate email notifications depends on the notification templates configured by your administrator. Users can control their email preferences in [Profile Settings](/docs/using/profile-settings.md).
 :::
 
 ## Configuration
 
-The mail server used to send notifications is configured during the [Notification Service](/docs/getting-started/configuration/backend/notification.md) setup. Administrators configure the SMTP server, sender address, and per-notification templates.
+The mail server used to send notifications is configured during the [Notification Service](/docs/deployment/configuration/backend/notification.md) setup. Administrators configure the SMTP server, sender address, and per-notification templates.
 
 ## User Preferences
 
-Users can choose which notifications they receive via email in their [Profile Settings](/docs/user-guide/profile-settings.md) under **Notification Preferences**. Only notifications that support more than one delivery channel (in-app and email) will appear as a preference option.
+Users can choose which notifications they receive via email in their [Profile Settings](/docs/using/profile-settings.md) under **Notification Preferences**. Only notifications that support more than one delivery channel (in-app and email) will appear as a preference option.

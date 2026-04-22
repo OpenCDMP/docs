@@ -417,19 +417,19 @@ Build and run the service as a standalone JAR or Docker container, accessible on
 
 ### Step 6 — Register with OpenCDMP
 
-Once your service is running, register it as a file transformer in OpenCDMP via the [Tenant Configuration](/docs/admin-guide/tenant-management/tenant-configuration.md) page. You will need to provide the base URL of your running service. The platform will call `GET /api/file-transformer/formats` to discover the transformer's capabilities and make its formats available to users.
+Once your service is running, register it as a file transformer in OpenCDMP via the [Tenant Configuration](/docs/administering/tenant-management/tenant-configuration.md) page. You will need to provide the base URL of your running service. The platform will call `GET /api/file-transformer/formats` to discover the transformer's capabilities and make its formats available to users.
 
 ---
 
 ## Reference Implementations
 
-The following open-source transformers are part of the OpenCDMP platform and serve as complete examples:
+The following open-source transformers are part of the OpenCDMP platform and serve as complete examples. Each has a documented semantic-to-output-field mapping that shows how the transformer discovers fields in the plan blueprint and description templates via [`FieldModel.semantics`](/docs/developers/plugins/common-models.md) — useful as a pattern for your own transformer.
 
-| Project | Format | GitHub |
-|---------|--------|--------|
-| `file-transformer-docx` | Microsoft Word (.docx) | [GitHub](https://github.com/OpenCDMP/file-transformer-docx) |
-| `file-transformer-rda-json` | RDA maDMP JSON | [GitHub](https://github.com/OpenCDMP/file-transformer-rda-json) |
-| `file-transformer-raid-json` | RAID JSON | [GitHub](https://github.com/OpenCDMP/file-transformer-raid-json) |
+| Project | Format | GitHub | Mapping reference |
+|---------|--------|--------|-------------------|
+| `file-transformer-docx` | Microsoft Word (.docx) | [GitHub](https://github.com/OpenCDMP/file-transformer-docx) | [DOCX templates](/docs/optional-services/file-transformers/docx-templates.md) (placeholder-based, not semantic) |
+| `file-transformer-rda-json` | RDA maDMP JSON | [GitHub](https://github.com/OpenCDMP/file-transformer-rda-json) | [RDA JSON semantics](/docs/optional-services/file-transformers/rda-json-semantics.md) |
+| `file-transformer-raid-json` | RAID JSON | [GitHub](https://github.com/OpenCDMP/file-transformer-raid-json) | [RAiD JSON semantics](/docs/optional-services/file-transformers/raid-json-semantics.md) |
 
 ---
 

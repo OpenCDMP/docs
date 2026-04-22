@@ -6,7 +6,7 @@ description: Discover how you can add custom deposit
 # Deposit
 
 :::info
-[Repository Deposit Base](https://mvnrepository.com/artifact/org.opencdmp/repository-deposit-base) is a **Maven package** that provides the base interfaces and configuration classes required to implement repository deposit services for the **OpenCDMP** platform. Each deposit service is an independent Spring Boot microservice that registers with OpenCDMP to support [depositing Plans](/docs/user-guide/plans/deposit-a-plan.md) to an external repository for **DOI assignment**.
+[Repository Deposit Base](https://mvnrepository.com/artifact/org.opencdmp/repository-deposit-base) is a **Maven package** that provides the base interfaces and configuration classes required to implement repository deposit services for the **OpenCDMP** platform. Each deposit service is an independent Spring Boot microservice that registers with OpenCDMP to support [depositing Plans](/docs/using/plans/deposit-a-plan.md) to an external repository for **DOI assignment**.
 :::
 
 ## How It Works
@@ -405,19 +405,21 @@ Build and deploy the service as a standalone JAR or Docker container accessible 
 
 ### Step 6 — Register with OpenCDMP
 
-Register your running service in OpenCDMP via the [Tenant Configuration](/docs/admin-guide/tenant-management/tenant-configuration.md) page, providing its base URL. The platform will call `GET /api/deposit/configuration` to discover its capabilities and make it available as a deposit option for plans.
+Register your running service in OpenCDMP via the [Tenant Configuration](/docs/administering/tenant-management/tenant-configuration.md) page, providing its base URL. The platform will call `GET /api/deposit/configuration` to discover its capabilities and make it available as a deposit option for plans.
 
 ---
 
 ## Reference Implementations
 
-| Project | Repository | GitHub |
-|---------|------------|--------|
-| `repository-deposit-zenodo` | Zenodo | [GitHub](https://github.com/OpenCDMP/repository-deposit-zenodo) |
-| `repository-deposit-dataverse` | Dataverse | [GitHub](https://github.com/OpenCDMP/repository-deposit-dataverse) |
-| `repository-deposit-dspace` | DSpace | [GitHub](https://github.com/OpenCDMP/repository-deposit-dspace) |
-| `repository-deposit-ckan` | CKAN | [GitHub](https://github.com/OpenCDMP/repository-deposit-ckan) |
-| `repository-deposit-fedora` | Fedora | [GitHub](https://github.com/OpenCDMP/repository-deposit-fedora) |
+The following open-source deposit services are part of the OpenCDMP platform and serve as complete examples. Each has a documented semantic-to-output-field mapping that shows how the plugin discovers values in the plan blueprint and description templates via [`FieldModel.semantics`](/docs/developers/plugins/common-models.md) — useful as a pattern for your own deposit service.
+
+| Project | Repository | GitHub | Mapping reference |
+|---------|------------|--------|-------------------|
+| `repository-deposit-zenodo` | Zenodo | [GitHub](https://github.com/OpenCDMP/repository-deposit-zenodo) | [Zenodo semantics](/docs/optional-services/deposit-services/zenodo-semantics.md) |
+| `repository-deposit-dataverse` | Dataverse | [GitHub](https://github.com/OpenCDMP/repository-deposit-dataverse) | [Dataverse semantics](/docs/optional-services/deposit-services/dataverse-semantics.md) |
+| `repository-deposit-dspace` | DSpace | [GitHub](https://github.com/OpenCDMP/repository-deposit-dspace) | [DSpace semantics](/docs/optional-services/deposit-services/dspace-semantics.md) |
+| `repository-deposit-ckan` | CKAN | [GitHub](https://github.com/OpenCDMP/repository-deposit-ckan) | [CKAN semantics](/docs/optional-services/deposit-services/ckan-semantics.md) |
+| `repository-deposit-fedora` | Fedora | [GitHub](https://github.com/OpenCDMP/repository-deposit-fedora) | [Fedora semantics](/docs/optional-services/deposit-services/fedora-semantics.md) |
 
 ---
 

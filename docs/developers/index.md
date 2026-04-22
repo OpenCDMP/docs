@@ -17,6 +17,10 @@ New to OpenCDMP API? Start here:
 
 - **[Integration Guide](integration.md)** - OAuth2/Keycloak integration overview
 
+## Logging and auditing
+
+- **[Logging and auditing](logging-and-auditing.md)** - Log file structure, configuration, troubleshooting log levels, and the complete audit event reference
+
 ## Plugin Development
 
 Build custom integrations for OpenCDMP:

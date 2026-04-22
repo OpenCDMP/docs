@@ -21,7 +21,7 @@ All plugin types follow the same pattern:
 1. **Implement a client interface** — contains your business logic (`FileTransformerClient`, `DepositClient`, `EvaluatorClient`).
 2. **Implement a controller interface** — exposes REST endpoints the platform calls (`FileTransformerController`, `DepositController`, `EvaluatorController`).
 3. **Expose a configuration endpoint** — the platform calls this at registration time to discover the plugin's capabilities (supported formats, benchmarks, auth methods, etc.).
-4. **Register with OpenCDMP** — add the running service URL in [Tenant Configuration](/docs/admin-guide/tenant-management/tenant-configuration.md). The platform then makes the plugin available to users.
+4. **Register with OpenCDMP** — add the running service URL in [Tenant Configuration](/docs/administering/tenant-management/tenant-configuration.md). The platform then makes the plugin available to users.
 
 ## Shared Data Models
 

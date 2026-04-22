@@ -60,8 +60,8 @@ const config: Config = {
 			{
 				hashed: true,
 				language: ['en'],
+				docsRouteBasePath: '/',
 				highlightSearchTermsOnTargetPage: true,
-				explicitSearchResultPath: true,
 				forceIgnoreNoIndex: true,
 			},
 		],

@@ -11,7 +11,7 @@ All of the information needed for this functionality is getting handled independ
 
 ## Usages
 
-Users can communicate in threads that attach to the [plan](user-guide/plans/index.md) questions and to the [description](user-guide/descriptions/index.md) questions themselves. There is a `comments` button next to the titles of the questions, which brings up a modal with the threads attached to them when clicked. Here, users can either create new threads or respond to existing ones. Comments can also be flaged as `hidden` which makes them visible only to their authors. When a `visible` comment is created, the other users gets notified. There is also a number attached to the annotation buttons indicating the count of them, if any.
+Users can communicate in threads that attach to the [plan](using/plans/index.md) questions and to the [description](using/descriptions/index.md) questions themselves. There is a `comments` button next to the titles of the questions, which brings up a modal with the threads attached to them when clicked. Here, users can either create new threads or respond to existing ones. Comments can also be flaged as `hidden` which makes them visible only to their authors. When a `visible` comment is created, the other users gets notified. There is also a number attached to the annotation buttons indicating the count of them, if any.
 
 ![annotation](/images/annotations/comment.png)
 
@@ -22,7 +22,7 @@ In addition to simple comments, users can mention other users on their responses
 A comment can change its `status` at any time. Clicking right from each comment appears a dropdown with all available annotation statuses that system have. If a comment changes status, the other users gets notified.
 
 :::info
-The way we create a annotation status is described in detail in the [annotation statuses](admin-guide/system-configuration/annotation-statuses.md) section of the docs.
+The way we create a annotation status is described in detail in the [annotation statuses](administering/system-configuration/annotation-statuses.md) section of the docs.
 :::
 
 ## Copy link

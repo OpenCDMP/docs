@@ -4,9 +4,9 @@ OpenCDMP supports a range of supplementary services that extend the platform's f
 
 The following supplementary services are available:
 
-- **[Deposit Services](deposit-services.md)** — Deposit plans to external research repositories (Zenodo, DSpace, CKAN, Dataverse, Fedora) to automatically mint a DOI.
+- **[Deposit Services](deposit-services/index.md)** — Deposit plans to external research repositories (Zenodo, DSpace, CKAN, Dataverse, Fedora) to automatically mint a DOI.
 - **[Evaluator Services](evaluator-services.md)** — Evaluate and rank plans against established standards such as RDA maDMP, OSTrails, and OpenAIRE FAIR.
-- **[File Transformers](file-transformers.md)** — Export and import plans and descriptions in various file formats including DOCX, PDF, RDA JSON, and RAiD JSON.
+- **[File Transformers](file-transformers/index.md)** — Export and import plans and descriptions in various file formats including DOCX, PDF, RDA JSON, and RAiD JSON.
 - **[Notifications](notifications/index.md)** — Send email and in-app notifications to users for updates, invitations, and plan activity.
 - **[Annotations](annotations.md)** — Enable collaborative reviewing through comments and annotations on plans and descriptions.
 

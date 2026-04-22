@@ -46,5 +46,5 @@ The following events can generate in-app notifications:
 | Credential removal confirmation | A request to unlink an email was initiated |
 
 :::info
-Which of these events generate in-app notifications depends on the notification templates configured by your administrator. Users can further control their preferences in [Profile Settings](/docs/user-guide/profile-settings.md).
+Which of these events generate in-app notifications depends on the notification templates configured by your administrator. Users can further control their preferences in [Profile Settings](/docs/using/profile-settings.md).
 :::

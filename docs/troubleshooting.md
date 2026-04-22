@@ -1,5 +1,5 @@
 ---
-sidebar_position: 6
+sidebar_position: 7
 description: Comprehensive troubleshooting guide for common OpenCDMP issues
 ---
 
@@ -593,7 +593,7 @@ Keycloak Admin Console → Realm Settings → Tokens
 
 ## Plugin Service Issues
 
-OpenCDMP plugins (file transformers, deposit services, evaluators) are independent microservices registered via [Tenant Configuration](/admin-guide/tenant-management/tenant-configuration.md). Use this section to diagnose connection and runtime issues.
+OpenCDMP plugins (file transformers, deposit services, evaluators) are independent microservices registered via [Tenant Configuration](/administering/tenant-management/tenant-configuration.md). Use this section to diagnose connection and runtime issues.
 
 ### Issue: Plugin Not Appearing in the UI
 
@@ -996,7 +996,7 @@ Before contacting support, gather this information:
 
 ## Related Documentation
 
-- [Deployment Guide](/getting-started/deployment/index.md) - Initial setup and deployment
+- [Deployment Guide](/deployment/install/index.md) - Initial setup and deployment
 
 ---
 

@@ -473,7 +473,7 @@ spring:
 
 ### Step 6 — Register with OpenCDMP
 
-Register your running service in OpenCDMP via the [Tenant Configuration](/docs/admin-guide/tenant-management/tenant-configuration.md) page. The platform will call `GET /api/evaluator/config` to discover its capabilities and make it available as an evaluation option for plans and descriptions.
+Register your running service in OpenCDMP via the [Tenant Configuration](/docs/administering/tenant-management/tenant-configuration.md) page. The platform will call `GET /api/evaluator/config` to discover its capabilities and make it available as an evaluation option for plans and descriptions.
 
 ---
 
